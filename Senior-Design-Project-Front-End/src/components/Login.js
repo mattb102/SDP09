@@ -1,26 +1,37 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Login(props) {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [failedLogin, setFailedLogin] = useState(false);
 
-    document.title = "Outreach Realty";
-
     const navigate = useNavigate();
-    const database = {
-        email: "test@test.com",
-        password: "test"
-    };
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
+        const csrfToken = Cookies.get('csrftoken'); // Retrieve CSRF token from the cookie
+        try {
+            const response = await fetch('api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
+                },
+                body: JSON.stringify({ username, password }),
+            });
 
-        if (email === database.email && password === database.password) {
-            setFailedLogin(false);
-            navigate("/home");
-        } else {
+            if (response.ok) {
+                // Redirect or perform actions upon successful login
+                navigate('/dashboard'); // Redirect to dashboard or any other route
+            } else {
+                // Handle failed login
+                setFailedLogin(true);
+            }
+        } catch (error) {
+            // Handle any other errors
+            console.error('Login error:', error);
             setFailedLogin(true);
         }
     }
@@ -29,11 +40,11 @@ function Login(props) {
         <div className="login-form">
             <form onSubmit={handleSubmit}>
                 <h2>Login</h2>
-                <label>Email</label><br/>
+                <label>Username</label><br/>
                 <input
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.currentTarget.value)}
                 /><br/><br/>
                 <label>Password</label><br/>
                 <input
