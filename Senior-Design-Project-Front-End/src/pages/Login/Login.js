@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import './login.css'
 
 function Login(props) {
     const [username, setUsername] = useState('');
@@ -37,27 +38,38 @@ function Login(props) {
     }
 
     return (
-        <div className="login-form">
-            <form onSubmit={handleSubmit}>
-                <h2>Login</h2>
-                <label>Username</label><br/>
-                <input
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.currentTarget.value)}
-                /><br/><br/>
-                <label>Password</label><br/>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.currentTarget.value)}
-                /><br/><br/>
-                {failedLogin && <p className="failed">Incorrect credentials. Try again.</p>}
-                <input type="submit" value="Log In"/>
-            </form>
-            <p>Don't have an account? <Link to="/sign-up">Sign Up</Link></p>
+        <>
+        <div className="login-banner">
+          <div className="product-title">
+            <h1>Outreach</h1>
+            <p>REALTY SERVICING</p>
+          </div>
         </div>
+        <div className="login-form-container">
+          <div className="login-form">
+            <p className="form-title">Login</p>
+            <br />
+            <input
+              value={username}
+              placeholder="Email"
+              onChange={ev => setUsername(ev.target.value)}
+              className={"input-box"} />
+            <br />
+            <input
+              value={password}
+              type="password"
+              placeholder="Password"
+              onChange={ev => setPassword(ev.target.value)}
+              className={"input-box"} />
+            <br />
+            <input
+              className={"input-button"}
+              type="submit"
+              onClick={handleSubmit}
+              value={"LOG IN"} />
+          </div>
+      </div>
+      </>
     );
 }
 
