@@ -3,8 +3,10 @@ from .models import House
 from .serializers import HouseSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 class HouseListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = House.objects.all()
     serializer_class = HouseSerializer
 
@@ -21,6 +23,7 @@ class HouseListView(generics.ListCreateAPIView):
 
 
 class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = House.objects.all()
     serializer_class = HouseSerializer
 
