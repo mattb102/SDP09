@@ -8,9 +8,7 @@ import Home from './pages/Home/home';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
-    <Route index element={ <Welcome/> } />
-    <Route path="/sign-in" element={ <Login/> } />
-    <Route path="/sign-up" element={ <SignUp/> }/>
+    <Route index element={ <Login/> } />
     <Route path="/" element={ <Root/> }>
       <Route path="home" element={ <Home/> } />
     </Route>
