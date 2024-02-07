@@ -38,38 +38,38 @@ function Login(props) {
     }
 
     return (
-        <>
-        <div className="login-banner">
-          <div className="product-title">
-            <h1>Outreach</h1>
-            <p>REALTY SERVICING</p>
+        <div className="login-page">
+          <div className="login-banner">
+            <div className="product-title">
+              <h1>Outreach</h1>
+              <p>REALTY SERVICING</p>
+            </div>
           </div>
+          <div className="login-form-container">
+            <div className="login-form">
+              <p className="form-title">Login</p>
+              <br />
+              <input
+                value={username}
+                placeholder="Email"
+                onChange={ev => setUsername(ev.target.value)}
+                className={"input-box"} />
+              <br />
+              <input
+                value={password}
+                type="password"
+                placeholder="Password"
+                onChange={ev => setPassword(ev.target.value)}
+                className={"input-box"} />
+              <br />
+              <input
+                className={"input-button"}
+                type="submit"
+                onClick={handleSubmit}
+                value={"LOG IN"} />
+            </div>
         </div>
-        <div className="login-form-container">
-          <div className="login-form">
-            <p className="form-title">Login</p>
-            <br />
-            <input
-              value={username}
-              placeholder="Email"
-              onChange={ev => setUsername(ev.target.value)}
-              className={"input-box"} />
-            <br />
-            <input
-              value={password}
-              type="password"
-              placeholder="Password"
-              onChange={ev => setPassword(ev.target.value)}
-              className={"input-box"} />
-            <br />
-            <input
-              className={"input-button"}
-              type="submit"
-              onClick={handleSubmit}
-              value={"LOG IN"} />
-          </div>
       </div>
-      </>
     );
 }
 

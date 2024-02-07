@@ -1,3 +1,9 @@
+.login-page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+
 .login-banner {
     flex: 2;
     flex-shrink: 2;
@@ -53,4 +59,12 @@ input {
 .input-button {
     background-color: black;
     color: white;
+}
+
+.input-button:hover {
+    cursor: pointer;
+}
+
+.input-button:active {
+    background-color: #333333;
 }
