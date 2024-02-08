@@ -45,22 +45,21 @@
 nav {
   justify-content: space-between;
   align-items: center;
-  height: 69px;
-  border-bottom: 1px solid seashell;
+  height: 4.5rem;
   background-color: black;
+  margin-bottom: 1rem;
 }
 
 nav a {
   color: white;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 
 nav .site-name {
-  margin-left: 10px;
+  margin-left: 0.75rem;
 }
 
-.navigation li {
-  display: inline;
-  margin-right: 50px;
+.navigation {
+  margin-right: 0.75rem;
 }
