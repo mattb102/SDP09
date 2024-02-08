@@ -35,15 +35,15 @@ function SignUp(props) {
       body: JSON.stringify({ username, email, password }),
     })
     .then(response => {
-    if (response.ok) {
+      if (response.ok) {
         // Successful sign up
         // Redirect or perform any other action
-    } else {
+      } else {
         // Handle error responses from backend
         return response.json().then(data => {
-        setError(data.message); // Set error message received from the backend
+          setError(data.message); // Set error message received from the backend
         });
-    }
+      }
     })
     .catch(error => {
       setError('An error occurred. Please try again.'); // Catch any other errors
