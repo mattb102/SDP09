@@ -3,12 +3,15 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from django.contrib.auth.views import LoginView
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.authtoken.views import obtain_auth_token
+
+
 
 class UserListView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]  # Allow any user to access this endpoint
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
