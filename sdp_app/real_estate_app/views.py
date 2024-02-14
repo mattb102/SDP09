@@ -10,6 +10,17 @@ class HouseListView(generics.ListCreateAPIView):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
 
+
+    def get_queryset(self):
+        queryset = House.objects.all()
+
+        # Filter by MLS number if provided in query parameters
+        mls_number = self.request.query_params.get('mls_number')
+        if mls_number:
+            queryset = queryset.filter(mls_number=mls_number)
+
+        return queryset
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
