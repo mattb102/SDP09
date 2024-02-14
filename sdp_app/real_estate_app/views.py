@@ -14,10 +14,9 @@ class HouseListView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = House.objects.all()
 
-        # Filter by MLS number if provided in query parameters
-        mls_number = self.request.query_params.get('mls_number')
-        if mls_number:
-            queryset = queryset.filter(mls_number=mls_number)
+        # Iterate over query parameters and filter queryset dynamically
+        for key, value in self.request.query_params.items():
+            queryset = queryset.filter(**{key: value})
 
         return queryset
 
