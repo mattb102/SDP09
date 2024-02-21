@@ -1,6 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
+import Information from "../../components/information";
+import Properties from "../../components/properties";
+import "./home.css"
 
 function Home(props) {
   const [loggedIn, setLoggedIn] = useOutletContext();
@@ -12,7 +15,10 @@ function Home(props) {
   }*/
 
   return (
-    <p>This is the home page!</p>
+    <div className="home-page">
+      <Information />
+      <Properties />
+    </div>
   );
 }
 

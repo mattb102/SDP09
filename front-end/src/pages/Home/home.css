@@ -1,0 +1,23 @@
+div {
+    border: 1px solid red;
+}
+
+.home-page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.information {
+    flex: 2;
+}
+
+.properties {
+    flex: 1;
+}
+
+.property-card {
+    margin: 10px auto;
+    width: 98%;
+    height: 5em;
+}
