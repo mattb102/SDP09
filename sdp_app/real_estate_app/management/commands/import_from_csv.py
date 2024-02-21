@@ -57,6 +57,7 @@ class Command(BaseCommand):
                 middle_jr_high_school = row[38]
                 pool_description = row[39]
                 estimated_annual_heat_cost = Decimal(row[40]) if row[40] else None
+                town = (row[41]) if row[41] else None
 
                 house = House.objects.create(
                     mls_number=mls_number,
@@ -99,7 +100,8 @@ class Command(BaseCommand):
                     exterior_features=exterior_features,
                     middle_jr_high_school=middle_jr_high_school,
                     pool_description=pool_description,
-                    estimated_annual_heat_cost=estimated_annual_heat_cost
+                    estimated_annual_heat_cost=estimated_annual_heat_cost,
+                    town=town
                 )
                 house.save()
 

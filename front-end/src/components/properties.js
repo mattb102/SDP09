@@ -36,6 +36,7 @@ function Properties(props) {
         <PropertyCard
           key={index}
           address={property.address}
+	  town={property.town}
           projectedValue={property.projectedValue}
           // Add more props as needed based on the data structure returned by your API
         />
