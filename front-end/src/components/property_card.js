@@ -1,12 +1,14 @@
 import React from "react";
 
-function PropertyCard(props) {
+function PropertyCard({ address, projectedValue }) {
   return (
     <div className="property-card">
-      <h3>Address</h3>
-      <p>Projected Value:</p>
+      <h3>{address}</h3>
+      <p>Projected Value: {projectedValue}</p>
+      {/* Add more property information as needed */}
     </div>
   );
 }
 
 export default PropertyCard;
+
