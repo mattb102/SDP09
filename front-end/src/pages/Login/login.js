@@ -28,6 +28,9 @@ function Login(props) {
 
       if (response.ok) {
         // Redirect or perform actions upon successful login
+	const data = await response.json(); // Parse the response body
+      	const token = data.token; // Assuming the token is returned in the response body
+      	Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
         navigate('/dashboard'); // Redirect to dashboard or any other route
       } else {
         // Handle failed login
