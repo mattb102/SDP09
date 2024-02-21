@@ -7,7 +7,6 @@ import "./home.css";
 import Cookies from 'js-cookie';
 
 function Home(props) {
-  const [loggedIn, setLoggedIn] = useOutletContext();
   const [houses, setHouses] = useState([]);
 
   useEffect(() => {
