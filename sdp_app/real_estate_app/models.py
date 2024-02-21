@@ -15,9 +15,10 @@ class House(models.Model):
     price = models.IntegerField()
     nearby_amenities = models.TextField()
     hoa_yn = models.BooleanField(default=False)
-    dom = models.CharField(max_length=10, null=True, blank=True)
+    town = models.CharField(max_length=50)
 
     # Optional Fields
+    dom = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length = 50, null=True, blank=True)
     acres = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     sqft_est_heated_above_grade = models.IntegerField(null=True, blank=True)
