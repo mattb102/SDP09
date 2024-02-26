@@ -1,7 +1,14 @@
 .home-page {
     display: flex;
+    flex-direction: column;
+    height: 100vh; /* 100% viewport height */
+}
+
+.home-page-properties {
+    display: flex;
     flex-direction: row;
-    height: 100vh;
+    flex: 1; /* Take remaining height */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
 
 .information {
@@ -11,7 +18,8 @@
 
 .properties {
     flex: 1;
-    overflow: scroll;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .property-card {

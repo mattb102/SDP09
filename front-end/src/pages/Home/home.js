@@ -5,6 +5,7 @@ import Information from "../../components/information";
 import Properties from "../../components/properties";
 import "./home.css";
 import Cookies from 'js-cookie';
+import Navbar from "../../components/navbar";
 
 function Home(props) {
   const [houses, setHouses] = useState([]);
@@ -45,9 +46,12 @@ function Home(props) {
   }*/
 
   return (
-    <div className="home-page">
-      <Information />
-      <Properties houses={houses} />
+    <div class="home-page">
+      <Navbar />
+      <div className="home-page-properties">
+        <Information />
+        <Properties houses={houses} />
+      </div>
     </div>
   );
 }
