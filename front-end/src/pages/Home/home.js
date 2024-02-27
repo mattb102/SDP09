@@ -23,6 +23,7 @@ function Home(props) {
         if (response.ok) {
           const data = await response.json();
           setProperties(data); // Update state with fetched property data
+          setCurrentProperty(data[0]);
         } else {
           console.error("Failed to fetch properties:", response.statusText);
         }
