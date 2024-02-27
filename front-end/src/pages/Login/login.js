@@ -52,7 +52,7 @@ function Login(props) {
         </div>
       </div>
       <div className="login-form-container">
-        <div className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <p className="form-title">Login</p>
           <br />
           <input
@@ -71,9 +71,9 @@ function Login(props) {
           <input
             className={"input-button"}
             type="submit"
-            onClick={handleSubmit}
             value={"LOG IN"} />
-        </div>
+        </form>
+        {failedLogin && <p className="failed-login">Login failed. Try again.</p>}
       </div>
     </div>
   );

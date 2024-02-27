@@ -19,10 +19,11 @@
     flex: 1;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .login-form {
-    margin: auto;
+    margin-bottom: 1em;
 }
 
 .form-title {
@@ -67,4 +68,9 @@ input {
 
 .input-button:active {
     background-color: #333333;
+}
+
+.failed-login {
+    color: red;
+    font-weight: bold;
 }
