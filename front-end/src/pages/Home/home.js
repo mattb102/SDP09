@@ -1,60 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
 import Information from "../../components/information";
 import Properties from "../../components/properties";
-import "./home.css";
-import Cookies from 'js-cookie';
 import Navbar from "../../components/navbar";
+import Cookies from 'js-cookie';
+import "./home.css";
 
 function Home(props) {
-  const [houses, setHouses] = useState([]);
+  const [properties, setProperties] = useState([]);
+  const [currentProperty, setCurrentProperty] = useState(1);
+  const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
 
   useEffect(() => {
-    // Fetch houses data when the component mounts
-    async function fetchHouses() {
+    const fetchProperties = async () => {
       try {
-        const token = Cookies.get("token"); // Retrieve token from cookie
-        const response = await fetch("/api/house/", {
+        const response = await fetch("api/house/", {
+          method: "GET",
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${authToken}`, // Include the authentication token in the request headers
           },
         });
+
         if (response.ok) {
           const data = await response.json();
-          setHouses(data.slice(0, 3)); // Set the first 3 houses in state
+          setProperties(data); // Update state with fetched property data
         } else {
-          console.error("Failed to fetch houses:", response.statusText);
+          console.error("Failed to fetch properties:", response.statusText);
         }
       } catch (error) {
-        console.error("Error fetching houses:", error);
+        console.error("Error fetching properties:", error);
       }
-    }
-
-    fetchHouses();
-
-    // Cleanup function to clear state on component unmount
-    return () => {
-      setHouses([]);
     };
-  }, []); // Empty dependency array to run effect only once on mount
 
-  /*if (!loggedIn) {
-    return (
-      <Navigate to ="/sign-in"/>
-    );
-  }*/
+    fetchProperties();
+  }, [authToken]); // Include authToken in the dependency array to trigger the effect when it changes
 
   return (
     <div class="home-page">
       <Navbar />
       <div className="home-page-properties">
-        <Information />
-        <Properties houses={houses} />
+        <Information currentProperty={currentProperty}/>
+        <Properties properties={properties} setCurrentProperty={setCurrentProperty}/>
       </div>
     </div>
   );
 }
 
 export default Home;
-

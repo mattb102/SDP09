@@ -1,13 +1,13 @@
 import React from "react";
 
-function Information(props) {
+function Information({currentProperty}) {
   return (
     <div className="information">
       <div>
-        <img src="https://placehold.co/600x400"/>
+        <img src="https://placehold.co/600x400" alt="placeholder"/>
       </div>
       <div>
-        <h2>Address</h2>
+        <h2>Address: {currentProperty.address}</h2>
       </div>
     </div>
   );
