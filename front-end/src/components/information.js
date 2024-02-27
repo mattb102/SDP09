@@ -8,10 +8,10 @@ function Information({currentProperty}) {
       </div>
       <div>
         <h2>Address: {currentProperty.address} {currentProperty.town}, CT</h2>
-        <p>Current Price: ${currentProperty.price.toLocaleString()}</p> <br/>
+        <p>Current Price: ${currentProperty.price}</p> <br/>
         <p>Number of Beds: {currentProperty.beds_total}</p>
         <p>Number of Baths: {currentProperty.baths_total}</p>
-        <p>Square Footage: {currentProperty.sq_ft_total.toLocaleString()} ft.</p>
+        <p>Square Footage: {currentProperty.sq_ft_total} ft.</p>
         <p>Acres: {currentProperty.acres}</p> <br/>
         <p>Year Built: {currentProperty.year_built}</p>
       </div>

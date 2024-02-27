@@ -5,7 +5,7 @@ const Navbar = (props) => {
     <nav className="nav-container">
       <a href="#" className="site-name">Outreach</a>
       <ul className="navigation">
-        <li><a href="#">Logout</a></li>
+        <li><a href="/">Logout</a></li>
       </ul>
     </nav>
   );
