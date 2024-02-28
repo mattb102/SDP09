@@ -1,0 +1,17 @@
+.information {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Adjust height as needed */
+  }
+  
+  .content {
+    text-align: center; /* Center content inside */
+  }
+  
+  .details {
+    margin-top: 20px; /* Add space between image and details */
+  }
+  
+  /* Additional styling can be added as needed */
+  

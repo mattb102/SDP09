@@ -18,46 +18,46 @@ class Command(BaseCommand):
             for row in reader:
                 mls_number = row[0]
                 address = row[1]
-                status = row[2]
-                last_status_date = datetime.strptime(row[3], '%m/%d/%Y').date()
-                property_type = row[4]
-                acres = Decimal(row[5]) if row[5] else None
-                sq_ft_total = int(row[6]) if row[6] else None
-                sqft_est_heated_above_grade = int(row[7]) if row[7] else None
-                rooms_total = int(row[8]) if row[8] else None
-                beds_total = int(row[9]) if row[9] else None
-                baths_total = (row[10]) if row[10] else None
-                garage_parking_info = row[11]
-                year_built = int(row[12]) if row[12] else None
-                dom = (row[13]) if row[13] else None
-                association_amenities = row[14]
-                assessed_value = Decimal(row[15]) if row[15] else None
-                driveway_type = row[16]
-                price = int(row[17]) if row[17] else None
-                property_tax = Decimal(row[18]) if row[18] else None
-                zoning = row[19]
-                handicap_features = True if row[20].lower() == 'yes' else False
-                energy_features = row[21]
-                hoa_fee_amount = Decimal(row[22]) if row[22] else None
-                hoa_yn = True if row[23].lower() == 'yes' else False
-                hoa_fee_frequency = row[24]
-                bank_owned_property = True if row[25].lower() == 'yes' else False
-                high_school = row[26]
-                elementary_school = row[27]
-                nearby_amenities = row[28]
-                swimming_pool_yn = True if row[29].lower() == 'yes' else False
-                direct_waterfront_yn = True if row[30].lower() == 'yes' else False
-                waterfront_description = row[31]
-                price_change_timestamp = datetime.strptime(row[32], '%m/%d/%Y') if row[32] else None
-                cooling_system = row[33]
-                heat_type = row[34]
-                heat_fuel = row[35]
-                intermediate_school = row[36]
-                exterior_features = row[37]
-                middle_jr_high_school = row[38]
-                pool_description = row[39]
-                estimated_annual_heat_cost = Decimal(row[40]) if row[40] else None
-                town = (row[41]) if row[41] else None
+                town = row[2]
+                status = row[3]
+                last_status_date = datetime.strptime(row[4], '%m/%d/%Y').date()
+                property_type = row[5]
+                acres = Decimal(row[6]) if row[6] else None
+                sq_ft_total = int(row[7]) if row[7] else None
+                sqft_est_heated_above_grade = int(row[8]) if row[8] else None
+                rooms_total = int(row[9]) if row[9] else None
+                beds_total = int(row[10]) if row[10] else None
+                baths_total = (row[11]) if row[11] else None
+                garage_parking_info = row[12]
+                year_built = int(row[13]) if row[13] else None
+                dom = (row[14]) if row[14] else None
+                association_amenities = row[15]
+                assessed_value = Decimal(row[16]) if row[16] else None
+                driveway_type = row[17]
+                price = int(row[18]) if row[18] else None
+                property_tax = Decimal(row[19]) if row[19] else None
+                zoning = row[20]
+                handicap_features = True if row[21].lower() == 'yes' else False
+                energy_features = row[22]
+                hoa_fee_amount = Decimal(row[23]) if row[23] else None
+                hoa_yn = True if row[24].lower() == 'yes' else False
+                hoa_fee_frequency = row[25]
+                bank_owned_property = True if row[26].lower() == 'yes' else False
+                high_school = row[27]
+                elementary_school = row[28]
+                nearby_amenities = row[29]
+                swimming_pool_yn = True if row[30].lower() == 'yes' else False
+                direct_waterfront_yn = True if row[31].lower() == 'yes' else False
+                waterfront_description = row[32]
+                price_change_timestamp = datetime.strptime(row[33], '%m/%d/%Y') if row[33] else None
+                cooling_system = row[34]
+                heat_type = row[35]
+                heat_fuel = row[36]
+                intermediate_school = row[37]
+                exterior_features = row[38]
+                middle_jr_high_school = row[39]
+                pool_description = row[40]
+                estimated_annual_heat_cost = Decimal(row[41]) if row[41] else None
 
                 house = House.objects.create(
                     mls_number=mls_number,
