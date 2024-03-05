@@ -12,7 +12,7 @@ function Information({currentProperty}) {
         <p>Number of Beds: {currentProperty.beds_total}</p>
         <p>Number of Baths: {currentProperty.baths_total}</p>
         <p>Square Footage: {currentProperty.sq_ft_total} ft.</p>
-        <p>Acres: {currentProperty.acres}</p> <br/>
+        {currentProperty.acres > 0 && <p>Acres: {currentProperty.acres}</p>} <br/>
         <p>Year Built: {currentProperty.year_built}</p>
       </div>
     </div>
