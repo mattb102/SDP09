@@ -21,8 +21,11 @@ def get_jsessionid():
     }
     
     response = session.get(sign_in_url, headers=headers)
-    
-    jsessionid_cookie = session.cookies.get('JSESSIONID')
+    print(session.cookies) 
+#    jsessionid_cookie = session.cookies.get('JSESSIONID')
+    for cookie in session.cookies:
+        if cookie.name == 'JSESSIONID' and cookie.domain == 'smartmls3.connectmls.com':
+            return cookie.value
     return jsessionid_cookie
 
 def get_listing_ids(jsessionid):
