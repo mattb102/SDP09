@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-function SignUp(props) {
+function SignUp() {
   const [email, setEmail] = useState('');
   const [username, setUsername]= useState('')
   const [password, setPassword] = useState('');

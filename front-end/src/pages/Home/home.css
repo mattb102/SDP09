@@ -1,19 +1,23 @@
 .home-page {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* 100% viewport height */
+    height: 100vh;
 }
 
 .home-page-properties {
     display: flex;
     flex-direction: row;
-    flex: 1; /* Take remaining height */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    flex: 1;
+    overflow-y: auto;
 }
 
-.information {
+.display-property {
     flex: 2;
     border-right: 5px solid black;
+}
+
+.property-details {
+    padding-top: 10px;
 }
 
 .properties {
@@ -23,7 +27,7 @@
 }
 
 .property-card {
-    margin: 10px auto;
+    margin: 10px 5px;
     height: 5em;
     border: 1px solid black;
     border-radius: 5px;
@@ -35,4 +39,8 @@
 .property-card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
     cursor: pointer;
-  }
+}
+
+.search-bar {
+    border-bottom: 5px solid black;
+}

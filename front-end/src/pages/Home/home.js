@@ -3,12 +3,28 @@ import Information from "../../components/information";
 import Properties from "../../components/properties";
 import Navbar from "../../components/navbar";
 import Cookies from 'js-cookie';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { login, logout } from '../../features/authenticatedSlice'
+import { useNavigate } from 'react-router-dom';
+
 import "./home.css";
+import SearchBar from "../../components/search";
 
 function Home(props) {
+  const isLoggedIn = useSelector((state) => state.authenticated.value)
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
   const [properties, setProperties] = useState([]);
   const [currentProperty, setCurrentProperty] = useState(1);
   const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -36,8 +52,9 @@ function Home(props) {
   }, [authToken]); // Include authToken in the dependency array to trigger the effect when it changes
 
   return (
-    <div class="home-page">
+    <div className="home-page">
       <Navbar />
+      <SearchBar />
       <div className="home-page-properties">
         <Information currentProperty={currentProperty}/>
         <Properties properties={properties} setCurrentProperty={setCurrentProperty}/>

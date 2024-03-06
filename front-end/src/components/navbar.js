@@ -1,6 +1,6 @@
 import React from "react";
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
     <nav className="nav-container">
       <a href="#" className="site-name">Outreach</a>

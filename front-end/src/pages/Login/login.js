@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { login, logout } from '../../features/authenticatedSlice'
 
 import Cookies from 'js-cookie';
 
@@ -11,6 +13,7 @@ function Login(props) {
   const [failedLogin, setFailedLogin] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -28,9 +31,10 @@ function Login(props) {
 
       if (response.ok) {
         // Redirect or perform actions upon successful login
-	const data = await response.json(); // Parse the response body
+	      const data = await response.json(); // Parse the response body
       	const token = data.token; // Assuming the token is returned in the response body
       	Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
+        dispatch(login())
         navigate('/dashboard'); // Redirect to dashboard or any other route
       } else {
         // Handle failed login
