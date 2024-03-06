@@ -2,11 +2,11 @@ import React from "react";
 
 function Information({currentProperty}) {
   return (
-    <div className="information">
-      <div>
+    <div className="display-property">
+      <div className="property-image">
         <img src="https://placehold.co/600x400" alt="placeholder"/>
       </div>
-      <div>
+      <div className="property-details">
         <h2>Address: {currentProperty.address} {currentProperty.town}, CT</h2>
         <p>Current Price: ${currentProperty.price}</p> <br/>
         <p>Number of Beds: {currentProperty.beds_total}</p>

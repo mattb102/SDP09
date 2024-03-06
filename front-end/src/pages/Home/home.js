@@ -3,9 +3,17 @@ import Information from "../../components/information";
 import Properties from "../../components/properties";
 import Navbar from "../../components/navbar";
 import Cookies from 'js-cookie';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { login, logout } from './authenticatedSlice'
+import { Redirect } from 'react-router-dom';
+
 import "./home.css";
 
 function Home(props) {
+  const isLoggedIn = useSelector((state) => state.authenticated.value)
+  const dispatch = useDispatch()
+
   const [properties, setProperties] = useState([]);
   const [currentProperty, setCurrentProperty] = useState(1);
   const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
@@ -34,6 +42,10 @@ function Home(props) {
 
     fetchProperties();
   }, [authToken]); // Include authToken in the dependency array to trigger the effect when it changes
+
+  if (!isLoggedIn) {
+    return <Redirect to="/"/>
+  }
 
   return (
     <div class="home-page">
