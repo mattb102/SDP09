@@ -14,9 +14,21 @@ class HouseListView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = House.objects.all()
 
+        min_price = self.request.query_params.get('min_price')
+        max_price = self.request.query_params.get('max_price')
+
+        # Filter queryset based on price range
+        if min_price is not None:
+            queryset = queryset.filter(price__gte=min_price)
+        if max_price is not None:
+            queryset = queryset.filter(price__lte=max_price)
+
         # Iterate over query parameters and filter queryset dynamically
         for key, value in self.request.query_params.items():
-            queryset = queryset.filter(**{key: value})
+            if key not in ['min_price', 'max_price']:
+                queryset = queryset.filter(**{key: value})
+        
+
 
         return queryset
 
