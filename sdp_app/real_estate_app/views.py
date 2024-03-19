@@ -4,31 +4,30 @@ from .serializers import HouseSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+
+class HousePagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
 class HouseListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = House.objects.all()
     serializer_class = HouseSerializer
-
+    pagination_class = HousePagination
 
     def get_queryset(self):
-        queryset = House.objects.all()
+        queryset = super().get_queryset()
 
+        # Filter queryset based on query parameters
         min_price = self.request.query_params.get('min_price')
         max_price = self.request.query_params.get('max_price')
 
-        # Filter queryset based on price range
         if min_price is not None:
             queryset = queryset.filter(price__gte=min_price)
         if max_price is not None:
             queryset = queryset.filter(price__lte=max_price)
-
-        # Iterate over query parameters and filter queryset dynamically
-        for key, value in self.request.query_params.items():
-            if key not in ['min_price', 'max_price']:
-                queryset = queryset.filter(**{key: value})
-        
-
 
         return queryset
 
@@ -38,8 +37,6 @@ class HouseListView(generics.ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
 
-        # Additional logic if needed when creating a new house
-        # For example, setting additional fields, etc.
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -48,6 +45,4 @@ class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = House.objects.all()
     serializer_class = HouseSerializer
-
-    # Additional logic for updating or deleting a house if needed
 
