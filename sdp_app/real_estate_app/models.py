@@ -11,7 +11,7 @@ class House(models.Model):
     baths_total = models.CharField(max_length=5)
     garage_parking_info = models.CharField(max_length=100)
     year_built = models.CharField(max_length=4)
-    assessed_value = models.IntegerField()
+    assessed_value = models.IntegerField(null=True)
     price = models.IntegerField()
     nearby_amenities = models.TextField()
     hoa_yn = models.BooleanField(default=False)
