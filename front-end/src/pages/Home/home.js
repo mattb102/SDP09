@@ -17,7 +17,7 @@ function Home(props) {
   const navigate = useNavigate();
 
   const [properties, setProperties] = useState([]);
-  const [currentProperty, setCurrentProperty] = useState(1);
+  const [currentProperty, setCurrentProperty] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
   const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
 
@@ -40,7 +40,7 @@ function Home(props) {
         if (response.ok) {
           const data = await response.json();
           setProperties(data.results); // Updated state with fetched property data (assuming data.results contains the properties)
-          setCurrentProperty(data.results[0]); // Set the current property
+          if (!currentProperty) setCurrentProperty(data.results[0]); // Set the current property
         } else {
           console.error("Failed to fetch properties:", response.statusText);
         }
@@ -52,18 +52,13 @@ function Home(props) {
     fetchProperties();
   }, [currentPage, authToken]); // Include currentPage in the dependency array to trigger the effect when it changes
 
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1); // Increment the current page
-  };
-
   return (
     <div className="home-page">
       <Navbar />
       <SearchBar />
       <div className="home-page-properties">
         <Information currentProperty={currentProperty}/>
-        <Properties properties={properties} setCurrentProperty={setCurrentProperty}/>
-        <button onClick={handleNextPage}>Next</button> {/* Render the "Next" button */}
+        <Properties properties={properties} setCurrentProperty={setCurrentProperty} setCurrentPage={setCurrentPage}/>
       </div>
     </div>
   );
