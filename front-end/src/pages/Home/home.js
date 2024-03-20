@@ -58,7 +58,10 @@ function Home(props) {
       <SearchBar />
       <div className="home-page-properties">
         <Information currentProperty={currentProperty}/>
-        <Properties properties={properties} setCurrentProperty={setCurrentProperty} setCurrentPage={setCurrentPage}/>
+        <Properties properties={properties}
+          setCurrentProperty={setCurrentProperty}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}/>
       </div>
     </div>
   );
