@@ -28,4 +28,3 @@ function Properties({properties, setCurrentProperty, setCurrentPage, currentPage
 }
 
 export default Properties;
-
