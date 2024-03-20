@@ -22,7 +22,7 @@ class HouseListView(generics.ListCreateAPIView):
 
 
         for key, value in self.request.query_params.items():
-            if 'page' in key:
+            if 'page' in key or key == 'max_price' or key == 'min_price':
                 continue
             queryset = queryset.filter(**{key: value})
         # Filter queryset based on query parameters
