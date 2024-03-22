@@ -44,3 +44,13 @@
 .search-bar {
     border-bottom: 5px solid black;
 }
+
+.page-button-container {
+    text-align: center; /* Center-align the content */
+}
+  
+.page-button-container button {
+    display: inline-block; /* Make buttons inline-block */
+    margin: 5px 5px; /* Optional: Add some spacing between buttons */
+    padding: 10px;
+}

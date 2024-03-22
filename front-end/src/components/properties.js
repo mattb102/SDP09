@@ -20,9 +20,11 @@ function Properties({properties, setCurrentProperty, setCurrentPage, currentPage
           setCurrentProperty={setCurrentProperty}
         />
       ))}
-      <button onClick={handleBackPage}>Back</button>
-      <button onClick={handleNextPage}>Next</button>
-      <p>Page: {currentPage}</p>
+      <div className="page-button-container">
+        <button onClick={handleBackPage}>Back</button>
+        <button onClick={handleNextPage}>Next</button>
+        <p>Page: {currentPage}</p>
+      </div>
     </div>
   );
 }
