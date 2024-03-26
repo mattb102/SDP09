@@ -1,3 +1,4 @@
+from rest_framework.views import APIView
 from rest_framework import generics
 from .models import House
 from .serializers import HouseSerializer
@@ -5,6 +6,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
+import tensorflow as tf
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from django.conf import settings
+
 
 class HousePagination(PageNumberPagination):
     page_size = 10
@@ -51,3 +57,24 @@ class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
 
+class PredictHousePrice(APIView):
+    def post(self, request):
+        # Load the saved model
+        model_path = 'predictive_model'  # Update this path based on your project structure
+        model = tf.keras.models.load_model(model_path)
+
+        # Get the prediction features from the request data
+        prediction_features = request.data
+
+        # Convert prediction features to DataFrame for standard scaling
+        df = pd.DataFrame(prediction_features, index=[0])
+
+        # Scale numerical features
+        scaler = StandardScaler()
+        scaled_features = scaler.fit_transform(df)
+
+        # Predict the house price
+        predicted_price = model.predict(scaled_features)[0][0]
+
+        # Return the predicted price in the response
+        return Response({'predicted_price': predicted_price}, status=status.HTTP_200_OK)
