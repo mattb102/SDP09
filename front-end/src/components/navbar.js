@@ -6,7 +6,7 @@ function Navbar() {
     <Box fontFamily='' bg="black" p={4} color="white">
       <Flex justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl" fontWeight="bold">Outreach</Text>
-        <Button variant="outline" colorScheme="whiteAlpha">
+        <Button colorScheme="whiteAlpha">
           Logout
         </Button>
       </Flex>
