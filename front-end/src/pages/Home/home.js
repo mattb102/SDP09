@@ -17,8 +17,10 @@ function Home(props) {
   const navigate = useNavigate();
 
   const [properties, setProperties] = useState([]);
-  const [currentProperty, setCurrentProperty] = useState(0);
+  const [currentProperty, setCurrentProperty] = useState({});
   const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
+  const [totalPages, setTotalPages] = useState(1);
+  const [maxPrice, setMaxPrice] = useState(999999999999);
   const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
 
   useEffect(() => {
@@ -30,7 +32,7 @@ function Home(props) {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch(`api/house/?page=${currentPage}&page_size=10`, { // Include page query parameter
+        const response = await fetch(`api/house/?page=${currentPage}&page_size=10&max_price=${maxPrice}`, { // Include page query parameter
           method: "GET",
           headers: {
             Authorization: `Token ${authToken}`, // Include the authentication token in the request headers
@@ -40,7 +42,9 @@ function Home(props) {
         if (response.ok) {
           const data = await response.json();
           setProperties(data.results); // Updated state with fetched property data (assuming data.results contains the properties)
-          if (!currentProperty) setCurrentProperty(data.results[0]); // Set the current property
+          setTotalPages(Math.ceil(data.count / 10));
+          console.log(totalPages);
+          if (Object.keys(currentProperty).length === 0) setCurrentProperty(data.results[0]); // Set the current property
         } else {
           console.error("Failed to fetch properties:", response.statusText);
         }
@@ -50,22 +54,23 @@ function Home(props) {
     };
 
     fetchProperties();
-  }, [currentPage, authToken]); // Include currentPage in the dependency array to trigger the effect when it changes
+  }, [currentPage, authToken, maxPrice]); // Include currentPage in the dependency array to trigger the effect when it changes
 
   return (
     <div className="home-page">
       <Navbar />
-      <SearchBar />
+      <SearchBar maxPrice={maxPrice} setMaxPrice={setMaxPrice}/>
       <div className="home-page-properties">
         <Information currentProperty={currentProperty}/>
-        <Properties properties={properties}
+        <Properties 
+          properties={properties}
           setCurrentProperty={setCurrentProperty}
           setCurrentPage={setCurrentPage}
-          currentPage={currentPage}/>
+          currentPage={currentPage}
+          pages={totalPages}/>
       </div>
     </div>
   );
 }
 
 export default Home;
-

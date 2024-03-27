@@ -1,8 +1,9 @@
 import PropertyCard from "./property_card";
 
-function Properties({properties, setCurrentProperty, setCurrentPage, currentPage}) {
+function Properties({properties, setCurrentProperty, setCurrentPage, currentPage, totalPages}) {
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1); // Increment the current page
+    console.log(totalPages);
+    setCurrentPage(prevPage => prevPage >= totalPages ? prevPage : prevPage + 1);
     document.getElementById('properties').scrollTop = 0;
   };
 
@@ -23,7 +24,7 @@ function Properties({properties, setCurrentProperty, setCurrentPage, currentPage
       <div className="page-button-container">
         <button onClick={handleBackPage}>Back</button>
         <button onClick={handleNextPage}>Next</button>
-        <p>Page: {currentPage}</p>
+        <p>Page: {currentPage}/{totalPages}</p>
       </div>
     </div>
   );
