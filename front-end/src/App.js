@@ -1,22 +1,22 @@
-import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
-
-import Home from './pages/Home/home';
-import SignUp from "./components/signup"
-import Login from './pages/Login/login';
-
 import './App.css';
-
-const router = createBrowserRouter(createRoutesFromElements(
-  <>
-    <Route index element={ <Login/> } />
-    <Route path="/signup" element={<SignUp />} />
-    <Route path="/dashboard" element={ <Home/> } />
-  </>
-));
+import { Flex } from '@chakra-ui/react';
+import Navbar from './components/navbar';
+import Search from './components/search';
+import PropertyCard from './components/property_card';
 
 function App() {
   return (
-    <RouterProvider router={router}/>
+    <div className="App">
+      <Navbar/>
+      <Search/>
+        <Flex flexWrap="wrap" justify="space-around">
+          <PropertyCard/>
+          <PropertyCard/>
+          <PropertyCard/>
+          <PropertyCard/>
+          <PropertyCard/>
+      </Flex>
+    </div>
   );
 }
 

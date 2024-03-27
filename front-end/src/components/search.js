@@ -1,23 +1,22 @@
-import React, {useState} from "react";
+import React from 'react';
+import { Box, Flex, Input, Button } from '@chakra-ui/react';
 
-function SearchBar({maxPrice, setMaxPrice}) {
+function SearchBar() {
   return (
-    <div className="search-bar">
-      <input
-        value={'test'}
-        placeholder="City, ZIP, Address"
-        className={"input-box"} />
-      <input
-        value={maxPrice}
-        placeholder="max price"
-        className={"input-box"}
-        onChange={ev => setMaxPrice(ev.target.value)} />
-      <input
-        className={"input-button"}
-        type="submit"
-        value="Beds and Baths &#9660;" />
-    </div>
+    <Box p={4}>
+      <Flex alignItems="center">
+        <Input placeholder="Search..."/>
+        <Button colorScheme="blue">Search</Button>
+        <Button ml={4} colorScheme="blue">
+          Filter 1
+        </Button>
+        <Button ml={2} colorScheme="blue">
+          Filter 2
+        </Button>
+        {/* Add more filter buttons as needed */}
+      </Flex>
+    </Box>
   );
-}
+};
 
 export default SearchBar;

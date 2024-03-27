@@ -1,13 +1,16 @@
 import React from "react";
+import { Box, Flex, Text, Button } from "@chakra-ui/react";
 
-const Navbar = () => {
-  return (
-    <nav className="nav-container">
-      <a href="#" className="site-name">Outreach</a>
-      <ul className="navigation">
-        <li><a href="/">Logout</a></li>
-      </ul>
-    </nav>
+function Navbar() {
+  return(
+    <Box fontFamily='' bg="black" p={4} color="white">
+      <Flex justifyContent="space-between" alignItems="center">
+        <Text fontSize="2xl" fontWeight="bold">Outreach</Text>
+        <Button variant="outline" colorScheme="whiteAlpha">
+          Logout
+        </Button>
+      </Flex>
+    </Box>
   );
 }
 
