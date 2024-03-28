@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 
-function SearchBar() {
+function SearchBar({maxPrice, setMaxPrice}) {
   return (
     <div className="search-bar">
       <input
@@ -8,9 +8,10 @@ function SearchBar() {
         placeholder="City, ZIP, Address"
         className={"input-box"} />
       <input
-        className={"input-button"}
-        type="submit"
-        value="Price &#9660;" />
+        value={maxPrice}
+        placeholder="max price"
+        className={"input-box"}
+        onChange={ev => setMaxPrice(ev.target.value)} />
       <input
         className={"input-button"}
         type="submit"
