@@ -4,7 +4,7 @@ function Information({currentProperty}) {
   return (
     <div className="display-property">
       <div className="property-image">
-        <img src="https://placehold.co/600x350" alt="placeholder"/>
+        <img src={currentProperty.image_url} alt="placeholder"/>
       </div>
       <div className="property-details">
         <h2>Address: {currentProperty.address} {currentProperty.town}, CT</h2>
