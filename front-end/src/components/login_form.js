@@ -1,9 +1,9 @@
 import React from "react";
 
-function Dashboard() {
+function LoginForm() {
   return(
     <p>Hello</p>
   );
 }
 
-export default Dashboard;
+export default LoginForm;

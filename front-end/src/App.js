@@ -15,6 +15,7 @@ function App() {
           <PropertyCard/>
           <PropertyCard/>
           <PropertyCard/>
+          <PropertyCard/>
       </Flex>
     </div>
   );

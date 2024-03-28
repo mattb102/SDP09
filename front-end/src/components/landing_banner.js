@@ -1,9 +1,9 @@
 import React from "react";
 
-function Dashboard() {
+function LandingBanner() {
   return(
     <p>Hello</p>
   );
 }
 
-export default Dashboard;
+export default LandingBanner;

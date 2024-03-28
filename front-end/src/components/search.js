@@ -8,10 +8,7 @@ function SearchBar() {
         <Input placeholder="Search..."/>
         <Button colorScheme="blue">Search</Button>
         <Button ml={4} colorScheme="blue">
-          Filter 1
-        </Button>
-        <Button ml={2} colorScheme="blue">
-          Filter 2
+          Filters
         </Button>
         {/* Add more filter buttons as needed */}
       </Flex>
