@@ -1,6 +1,7 @@
 from django.db import models
 
 class House(models.Model):
+    image_url = models.CharField(max_length=100, null=True)
     mls_number = models.CharField(max_length=20, unique=True)
     status = models.CharField(max_length=20)
     last_status_date = models.DateField()
@@ -16,8 +17,6 @@ class House(models.Model):
     nearby_amenities = models.TextField()
     hoa_yn = models.BooleanField(default=False)
     town = models.CharField(max_length=50)
-
-    # Optional Fields
     dom = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length = 50, null=True, blank=True)
     acres = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
