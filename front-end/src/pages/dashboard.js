@@ -14,9 +14,6 @@ function Dashboard() {
         <PropertyCard/>
         <PropertyCard/>
         <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
       </Flex>
     </Box>
   );

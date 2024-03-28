@@ -7,8 +7,7 @@ function PropertyCard() {
       <CardBody>
         <Image
           src='https://photos.zillowstatic.com/fp/11bfacdab1f7910be8e606a470d9b4b8-cc_ft_1536.webp'
-          alt='Green double couch with wooden legs'
-          borderRadius='lg'
+          borderRadius='sm'
         />
         <Stack mt='6' spacing='3' textAlign='left'>
           <Heading size='md'>1 Minnesota Rd, # 1, Storrs Mansfield, CT 06268</Heading>
