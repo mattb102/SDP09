@@ -1,8 +1,8 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react"
 
-import LandingBanner from "../components/landing_banner";
-import LoginForm from "../components/login_form";
+import LandingBanner from "../components/landing-banner";
+import LoginForm from "../components/login-form";
 
 function Login() {
   return(

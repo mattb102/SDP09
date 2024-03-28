@@ -3,7 +3,7 @@ import { Box, Flex } from "@chakra-ui/react";
 
 import Navbar from '../components/navbar';
 import Search from '../components/search';
-import PropertyCard from '../components/property_card';
+import PropertyCard from '../components/property-card';
 
 function Dashboard() {
   return(

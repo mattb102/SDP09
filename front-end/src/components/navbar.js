@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 
 function Navbar() {
@@ -6,9 +7,7 @@ function Navbar() {
     <Box fontFamily='' bg="black" p={4} color="white">
       <Flex justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl" fontWeight="bold">Outreach</Text>
-        <Button colorScheme="whiteAlpha">
-          Logout
-        </Button>
+        <Link to='/'><Button colorScheme="whiteAlpha">Logout</Button></Link>
       </Flex>
     </Box>
   );

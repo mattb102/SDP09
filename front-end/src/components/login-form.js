@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Flex, Button, FormControl, FormLabel, Input, Heading, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Button, FormControl, FormLabel, Input, Heading, VStack } from "@chakra-ui/react";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ const LoginForm = () => {
             <FormLabel>Password</FormLabel>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </FormControl>
-          <Button type="submit" colorScheme="blue">Login</Button>
+          <Link to='/dashboard'><Button type="submit" colorScheme="blue">Login</Button></Link>
         </VStack>
       </form>
     </VStack>
