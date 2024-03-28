@@ -1,8 +1,24 @@
 import React from "react";
+import { Box, Flex } from "@chakra-ui/react";
+
+import Navbar from '../components/navbar';
+import Search from '../components/search';
+import PropertyCard from '../components/property_card';
 
 function Dashboard() {
   return(
-    <p>Hello</p>
+    <Box>
+      <Navbar/>
+      <Search/>
+      <Flex>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+        <PropertyCard/>
+      </Flex>
+    </Box>
   );
 }
 
