@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
+import Cookies from 'js-cookie';
 
 import Navbar from '../components/navbar';
 import Search from '../components/search';
 import PropertyCard from '../components/property-card';
+import fetchProperties from "../utilities/fetch-properties";
 
 function Dashboard() {
+  const [properties, setProperties] = useState([]);
+  const [currentProperty, setCurrentProperty] = useState({});
+  const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
+  const [totalPages, setTotalPages] = useState(1);
+  // const [maxPrice, setMaxPrice] = useState(999999999999);
+  const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchProperties(setProperties, setCurrentProperty, totalPages, setTotalPages, currentPage, authToken);
+  }, [currentPage, totalPages, authToken]);
+
   return(
     <Box>
       <Navbar/>
       <Search/>
       <Flex justify='space-around' wrap='wrap'>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
-        <PropertyCard/>
+        {properties.map((property, index) => (
+          <PropertyCard
+            key={index}
+            property={property}
+            setCurrentProperty={setCurrentProperty}
+          />
+        ))}
       </Flex>
     </Box>
   );

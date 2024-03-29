@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardBody, Image, Stack, Heading, Text} from "@chakra-ui/react";
 
-function PropertyCard() {
+function PropertyCard({property, setCurrentProperty}) {
   return(
     <Card maxW='md'>
       <CardBody>
@@ -10,14 +10,12 @@ function PropertyCard() {
           borderRadius='sm'
         />
         <Stack mt='6' spacing='3' textAlign='left'>
-          <Heading size='md'>1 Minnesota Rd, # 1, Storrs Mansfield, CT 06268</Heading>
+          <Heading size='md'>{`${property.address}, ${property.town}, CT`}</Heading>
           <Text>Bedrooms: 2</Text>
           <Text>Bathrooms: 1.5</Text>
           <Text>Size: 1,130 sqft</Text>
           <Text></Text>
-          <Text color='blue.600' fontSize='2xl'>
-            $400,000
-          </Text>
+          <Text color='blue.600' fontSize='2xl'>{`$${property.price.toLocaleString()}`}</Text>
         </Stack>
       </CardBody>
     </Card>
