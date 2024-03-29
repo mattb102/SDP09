@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 
-async function handleAuthenticate(email, password, setAuthorized) {
+async function handleAuthenticate(event, email, password, setAuthorized) {
+  event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
 
   try {
@@ -19,12 +20,11 @@ async function handleAuthenticate(email, password, setAuthorized) {
       Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
       setAuthorized(true);
     } else {
-      // TODO: Response proccessed but login failed, handle this
-      console.log('test')
+      // TODO: Couldn't reach API or bad credentials
+
     }
   } catch (error) {
-    // TODO: Error occurred with api request
-    setAuthorized(true);
+    // TODO: Some other error occurred
     console.error('Login error:', error);
   }
 }

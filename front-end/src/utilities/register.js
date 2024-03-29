@@ -1,9 +1,12 @@
-function handleRegister(event) {
+import Cookies from "js-cookie";
+
+function handleRegister(event, email, password, confirmPassword, setRegisterSuccess) {
   event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
+  const testEmail = 'test@test.com';
 
   if (password !== confirmPassword) {
-    setError("Passwords don't match");
+    console.error("Passwords don't match");
     return;
   }
 
@@ -15,20 +18,21 @@ function handleRegister(event) {
   fetch('api/users/', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ username, email, password }),
+    body: JSON.stringify({ email, testEmail, password }),
   })
   .then(response => {
     if (response.ok) {
       // Successful sign up, redirect or perform any other action
+      setRegisterSuccess(true);
     } else {
       // Handle error responses from backend
       return response.json().then(data => {
-        setError(data.message);
+        console.error(data.message);
       });
     }
   })
   .catch(error => {
-    setError('An error occurred. Please try again.');
+    console.error('An error occurred. Please try again.');
   });
 }
 

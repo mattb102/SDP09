@@ -1,9 +1,21 @@
-import React, {useState} from "react";
+import React, { useState, useNavigate, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@chakra-ui/react";
 
-function RegisterForm({email, setEmail, password, setPassword, setSignup, handleRegister}) {
-  const [verifyPassword, setVerifyPassword] = useState('');
+import handleRegister from "../utilities/register";
+
+function RegisterForm({setSignup}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (registerSuccess === true) {
+      navigate("/dashboard");
+    }
+  }, [registerSuccess, navigate]);
 
   return (
     <Box
@@ -16,7 +28,7 @@ function RegisterForm({email, setEmail, password, setPassword, setSignup, handle
       bg="white"
     >
       <Heading mb={4}>Sign up</Heading>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={(e) => handleRegister(e, email, password, confirmPassword, setRegisterSuccess)}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
@@ -44,8 +56,8 @@ function RegisterForm({email, setEmail, password, setPassword, setSignup, handle
             <FormLabel>Re-enter password</FormLabel>
             <Input
               type="password"
-              value={verifyPassword}
-              onChange={(e) => setVerifyPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               variant="outline"
               focusBorderColor="gray.600"
               borderRadius={0}
@@ -64,7 +76,7 @@ function RegisterForm({email, setEmail, password, setPassword, setSignup, handle
       </form>
       <Box textAlign="center" mt={4}>
         Already have an account?{' '}
-        <Link onClick={() => setSignup(false)} color="gray.600">
+        <Link to ="/" onClick={() => setSignup(false)} color="gray.600">
           Log in
         </Link>
       </Box>

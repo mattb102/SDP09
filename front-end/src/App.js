@@ -8,7 +8,6 @@ import './App.css';
 const router = createBrowserRouter(createRoutesFromElements(
   <>
     <Route index element={ <Login/> } />
-    {/*<Route path="/signup" element={ <SignUp/> } />*/}
     <Route path="/dashboard" element={ <Dashboard/> } />
   </>
 ));

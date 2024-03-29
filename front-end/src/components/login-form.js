@@ -27,7 +27,7 @@ const LoginForm = ({setSignup}) => {
       bg="white"
     >
       <Heading mb={4}>Login</Heading>
-      <form onSubmit={() => handleAuthenticate(email, password, setAuthorized)}>
+      <form onSubmit={(e) => handleAuthenticate(e, email, password, setAuthorized)}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
@@ -67,7 +67,7 @@ const LoginForm = ({setSignup}) => {
       </form>
       <Box textAlign="center" mt={4}>
         Don't have an account?{' '}
-        <Link href='#' onClick={() => setSignup(true)} color="gray.600">
+        <Link to="/" onClick={() => setSignup(true)} color="gray.600">
           Sign up
         </Link>
       </Box>
