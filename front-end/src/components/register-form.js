@@ -1,5 +1,5 @@
-import React, { useState, useNavigate, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@chakra-ui/react";
 
 import handleRegister from "../utilities/register";

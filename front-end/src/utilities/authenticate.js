@@ -4,6 +4,8 @@ async function handleAuthenticate(event, email, password, setAuthorized) {
   event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
 
+  const username = email; // temp until backend remove usernames
+
   try {
     const response = await fetch('api/login/', {
       method: 'POST',
@@ -11,7 +13,7 @@ async function handleAuthenticate(event, email, password, setAuthorized) {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrfToken,
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }), // change username to email when backend removes usernames
     });
 
     if (response.ok) {

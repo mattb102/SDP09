@@ -3,7 +3,9 @@ import Cookies from "js-cookie";
 function handleRegister(event, email, password, confirmPassword, setRegisterSuccess) {
   event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
-  const testEmail = 'test@test.com';
+
+  const username = email; // temporary until get rid of usernames
+  const testEmail = 'test@test.com'; // use test email for each account (placeholder)
 
   if (password !== confirmPassword) {
     console.error("Passwords don't match");
@@ -18,7 +20,7 @@ function handleRegister(event, email, password, confirmPassword, setRegisterSucc
   fetch('api/users/', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ email, testEmail, password }),
+    body: JSON.stringify({ username, testEmail, password }), // change username to email when they are removed
   })
   .then(response => {
     if (response.ok) {
