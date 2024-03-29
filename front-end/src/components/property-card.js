@@ -3,7 +3,7 @@ import { Card, CardBody, Image, Stack, Heading, Text} from "@chakra-ui/react";
 
 function PropertyCard() {
   return(
-    <Card maxW='sm'>
+    <Card maxW='md'>
       <CardBody>
         <Image
           src='https://photos.zillowstatic.com/fp/11bfacdab1f7910be8e606a470d9b4b8-cc_ft_1536.webp'

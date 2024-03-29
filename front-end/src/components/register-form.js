@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@chakra-ui/react";
 
-const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLogin}) => {
+function RegisterForm({email, setEmail, password, setPassword, setSignup, handleRegister}) {
+  const [verifyPassword, setVerifyPassword] = useState('');
+
   return (
     <Box
       p={8}
@@ -13,8 +15,8 @@ const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLog
       boxShadow="lg"
       bg="white"
     >
-      <Heading mb={4}>Login</Heading>
-      <form onSubmit={handleLogin}>
+      <Heading mb={4}>Sign up</Heading>
+      <form onSubmit={handleRegister}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
@@ -38,6 +40,17 @@ const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLog
               borderRadius={0}
             />
           </FormControl>
+          <FormControl id="password" isRequired>
+            <FormLabel>Re-enter password</FormLabel>
+            <Input
+              type="password"
+              value={verifyPassword}
+              onChange={(e) => setVerifyPassword(e.target.value)}
+              variant="outline"
+              focusBorderColor="gray.600"
+              borderRadius={0}
+            />
+          </FormControl>
           <Button
             type="submit"
             colorScheme="gray"
@@ -45,21 +58,18 @@ const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLog
             borderRadius={0}
             _hover={{ bg: 'gray.700' }}
           >
-            Login
+            Sign up
           </Button>
-          <Link href="#" color="gray.600">
-            Forgot password?
-          </Link>
         </VStack>
       </form>
       <Box textAlign="center" mt={4}>
-        Don't have an account?{' '}
-        <Link onClick={() => setSignup(true)} color="gray.600">
-          Sign up
+        Already have an account?{' '}
+        <Link onClick={() => setSignup(false)} color="gray.600">
+          Log in
         </Link>
       </Box>
     </Box>
   );
-};
+}
 
-export default LoginForm;
+export default RegisterForm;

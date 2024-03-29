@@ -7,10 +7,7 @@ function SearchBar() {
       <Flex alignItems="center">
         <Input placeholder="Search..."/>
         <Button colorScheme='blackAlpha' bg="gray" borderRadius={1}>Search</Button>
-        <Button ml={4} colorScheme="blackAlpha" borderRadius={1}>
-          Filters
-        </Button>
-        {/* Add more filter buttons as needed */}
+        <Button ml={4} colorScheme="blackAlpha" borderRadius={1}>Filters</Button>
       </Flex>
     </Box>
   );
