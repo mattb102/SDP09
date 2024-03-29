@@ -6,7 +6,7 @@ function PropertyCard({property, setCurrentProperty}) {
     <Card maxW='md'>
       <CardBody>
         <Image
-          src='https://photos.zillowstatic.com/fp/11bfacdab1f7910be8e606a470d9b4b8-cc_ft_1536.webp'
+          src={property.image_url}
           borderRadius='sm'
         />
         <Stack mt='6' spacing='3' textAlign='left'>
