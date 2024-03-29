@@ -1,5 +1,6 @@
-async function handleSubmit(event) {
-  event.preventDefault();
+import Cookies from 'js-cookie';
+
+async function handleAuthenticate(email, password, setAuthorized) {
   const csrfToken = Cookies.get('csrftoken');
 
   try {
@@ -9,22 +10,23 @@ async function handleSubmit(event) {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrfToken,
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (response.ok) {
       const data = await response.json();
       const token = data.token;
       Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
-      dispatch(login())
-      navigate('/dashboard');
+      setAuthorized(true);
     } else {
-      setFailedLogin(true);
+      // TODO: Response proccessed but login failed, handle this
+      console.log('test')
     }
   } catch (error) {
+    // TODO: Error occurred with api request
+    setAuthorized(true);
     console.error('Login error:', error);
-    setFailedLogin(true);
   }
 }
 
-export default handleSubmit;
+export default handleAuthenticate;

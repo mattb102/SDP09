@@ -1,8 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@chakra-ui/react";
 
-const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLogin}) => {
+import handleAuthenticate from "../utilities/authenticate"; 
+
+const LoginForm = ({setSignup}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authorized, setAuthorized] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorized === true) {
+      navigate("/dashboard");
+    }
+  }, [authorized, navigate]);
+
   return (
     <Box
       p={8}
@@ -14,7 +27,7 @@ const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLog
       bg="white"
     >
       <Heading mb={4}>Login</Heading>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={() => handleAuthenticate(email, password, setAuthorized)}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
@@ -54,7 +67,7 @@ const LoginForm = ({email, setEmail, password, setPassword, setSignup, handleLog
       </form>
       <Box textAlign="center" mt={4}>
         Don't have an account?{' '}
-        <Link onClick={() => setSignup(true)} color="gray.600">
+        <Link href='#' onClick={() => setSignup(true)} color="gray.600">
           Sign up
         </Link>
       </Box>
