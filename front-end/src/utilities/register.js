@@ -5,7 +5,7 @@ function handleRegister(event, email, password, confirmPassword, setRegisterSucc
   const csrfToken = Cookies.get('csrftoken');
 
   const username = email; // temporary until get rid of usernames
-  const email = 'test@test.com'; // use test email for each account (placeholder)
+  email = 'test@test.com'; // use test email for each account (placeholder)
 
   if (password !== confirmPassword) {
     console.error("Passwords don't match");
