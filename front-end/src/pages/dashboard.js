@@ -10,7 +10,8 @@ function Dashboard() {
     <Box>
       <Navbar/>
       <Search/>
-      <Flex>
+      <Flex justify='space-around'>
+        <PropertyCard/>
         <PropertyCard/>
         <PropertyCard/>
         <PropertyCard/>

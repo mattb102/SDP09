@@ -6,8 +6,8 @@ function SearchBar() {
     <Box p={4}>
       <Flex alignItems="center">
         <Input placeholder="Search..."/>
-        <Button colorScheme='blackAlpha' bg="gray">Search</Button>
-        <Button ml={4} colorScheme="blackAlpha">
+        <Button colorScheme='blackAlpha' bg="gray" borderRadius={1}>Search</Button>
+        <Button ml={4} colorScheme="blackAlpha" borderRadius={1}>
           Filters
         </Button>
         {/* Add more filter buttons as needed */}

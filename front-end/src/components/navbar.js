@@ -7,7 +7,7 @@ function Navbar() {
     <Box fontFamily='' bg="#0F0F0F" p={4} color="white">
       <Flex justifyContent="space-between" alignItems="center">
         <Text fontSize="2xl" fontWeight="bold">Outreach</Text>
-        <Link to='/'><Button colorScheme="whiteAlpha">Logout</Button></Link>
+        <Link to='/'><Button colorScheme="whiteAlpha" borderRadius={1}>Logout</Button></Link>
       </Flex>
     </Box>
   );
