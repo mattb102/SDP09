@@ -17,13 +17,13 @@ function SearchBar() {
             Filters
           </MenuButton>
           <MenuList borderRadius={0}>
-            <Text>
+            <MenuItem>
               <label>
                 Price Range:
                 <input type="text" placeholder="Min" style={{ marginLeft: '10px' }}/>
                 <input type="text" placeholder="Max" style={{ marginLeft: '10px' }}/>
               </label>
-            </Text>
+            </MenuItem>
             <MenuItem>
               <label>
                 Number of Bedrooms:
