@@ -4,7 +4,7 @@ import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@ch
 
 import handleAuthenticate from "../utilities/authenticate"; 
 
-const LoginForm = ({setSignup}) => {
+const LoginForm = ({setSignup, setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authorized, setAuthorized] = useState(false);
@@ -12,6 +12,7 @@ const LoginForm = ({setSignup}) => {
 
   useEffect(() => {
     if (authorized === true) {
+      setIsLoggedIn(true);
       navigate("/dashboard");
     }
   }, [authorized, navigate]);
