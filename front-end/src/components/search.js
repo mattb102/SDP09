@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons'; // Import the ChevronDownIcon
 
 function SearchBar() {
@@ -10,20 +10,20 @@ function SearchBar() {
   return (
     <Box p={4}>
       <Flex alignItems="center">
-        <Input placeholder="Search..." />
-        <Button colorScheme='blackAlpha' bg="gray" borderRadius={1}>Search</Button>
+        <Input borderRadius={0} placeholder="Search..." />
+        <Button colorScheme='blackAlpha' bg="gray" borderRadius={0}>Search</Button>
         <Menu>
-          <MenuButton as={Button} ml={4} colorScheme="blackAlpha" borderRadius={1} rightIcon={<ChevronDownIcon />}>
+          <MenuButton as={Button} ml={4} colorScheme="blackAlpha" bg="gray" borderRadius={0} rightIcon={<ChevronDownIcon />}>
             Filters
           </MenuButton>
-          <MenuList>
-            <MenuItem>
+          <MenuList borderRadius={0}>
+            <Text>
               <label>
                 Price Range:
-                <input type="text" placeholder="Min" style={{ marginLeft: '10px' }} onClick={stopPropagation} />
-                <input type="text" placeholder="Max" style={{ marginLeft: '10px' }} onClick={stopPropagation} />
+                <input type="text" placeholder="Min" style={{ marginLeft: '10px' }}/>
+                <input type="text" placeholder="Max" style={{ marginLeft: '10px' }}/>
               </label>
-            </MenuItem>
+            </Text>
             <MenuItem>
               <label>
                 Number of Bedrooms:

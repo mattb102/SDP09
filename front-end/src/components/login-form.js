@@ -23,7 +23,7 @@ const LoginForm = ({setSignup, setIsLoggedIn}) => {
       m={8}
       w='350px'
       borderWidth={1}
-      borderRadius={8}
+      borderRadius={0}
       boxShadow="lg"
       bg="white"
     >
@@ -57,7 +57,7 @@ const LoginForm = ({setSignup, setIsLoggedIn}) => {
             colorScheme="gray"
             width="100%"
             borderRadius={0}
-            _hover={{ bg: 'gray.700' }}
+            _hover={{ bg: 'gray', color: 'white' }}
           >
             Login
           </Button>
