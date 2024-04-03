@@ -3,7 +3,7 @@ import { Card, CardBody, Image, Stack, Heading, Text} from "@chakra-ui/react";
 
 import PropertyModal from "./property-modal";
 
-function PropertyCard({property, setCurrentProperty}) {
+function PropertyCard({property}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -11,11 +11,11 @@ function PropertyCard({property, setCurrentProperty}) {
 
   return(
     <>
-      <Card maxW="md" mb={4} onClick={openModal} cursor="pointer">
+      <Card maxW="md" mb={4} onClick={openModal} cursor="pointer" borderRadius={0}>
         <CardBody>
           <Image
             src={property.image_url}
-            borderRadius='sm'
+            borderRadius={1}
             w='408px'
             h='278px'
           />

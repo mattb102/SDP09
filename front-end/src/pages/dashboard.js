@@ -11,7 +11,6 @@ import fetchProperties from "../utilities/fetch-properties";
 
 function Dashboard() {
   const [properties, setProperties] = useState([]);
-  const [currentProperty, setCurrentProperty] = useState({});
   const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
   const [totalPages, setTotalPages] = useState(1);
   // const [maxPrice, setMaxPrice] = useState(999999999999);
@@ -27,7 +26,7 @@ function Dashboard() {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    fetchProperties(setProperties, setCurrentProperty, totalPages, setTotalPages, currentPage, authToken);
+    fetchProperties(setProperties, setTotalPages, currentPage, authToken);
   }, [currentPage, totalPages, authToken]);
 
   return isLoggedIn && (
@@ -39,11 +38,10 @@ function Dashboard() {
           <PropertyCard
             key={index}
             property={property}
-            setCurrentProperty={setCurrentProperty}
           />
         ))}
       </Flex>
-      <Paging/>
+      <Paging setCurrentPage={setCurrentPage} totalPages={totalPages}/>
     </Box>
   );
 }
