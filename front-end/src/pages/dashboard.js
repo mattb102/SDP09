@@ -13,7 +13,6 @@ function Dashboard() {
   const [properties, setProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
   const [totalPages, setTotalPages] = useState(1);
-  // const [maxPrice, setMaxPrice] = useState(999999999999);
   const [isLoggedIn, setIsLoggedIn] = useOutletContext();
   const authToken = Cookies.get("token"); // Retrieve the authentication token from the cookie
 
