@@ -8,7 +8,7 @@ import RegisterForm from '../components/register-form';
 
 const LoginPage = () => {
   const [signup, setSignup] = useState(false);
-  const [, setIsLoggedIn] = useOutletContext();
+  const [isLoggedIn, setIsLoggedIn] = useOutletContext();
 
   return(
     <Flex
@@ -18,7 +18,7 @@ const LoginPage = () => {
     height="100vh"
     >
       <LandingBanner/>
-      {signup ? <RegisterForm setSignup={setSignup}/> : <LoginForm setSignup={setSignup} setIsLoggedIn={setIsLoggedIn}/>}
+      {signup ? <RegisterForm setSignup={setSignup}/> : <LoginForm setSignup={setSignup} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}
     </Flex>
   );
 };

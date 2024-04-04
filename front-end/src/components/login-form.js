@@ -4,18 +4,16 @@ import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@ch
 
 import handleAuthenticate from "../utilities/authenticate"; 
 
-const LoginForm = ({setSignup, setIsLoggedIn}) => {
+const LoginForm = ({setSignup, isLoggedIn, setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [authorized, setAuthorized] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authorized === true) {
-      setIsLoggedIn(true);
+    if (isLoggedIn === true) {
       navigate("/dashboard");
     }
-  }, [authorized, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <Box
@@ -28,7 +26,7 @@ const LoginForm = ({setSignup, setIsLoggedIn}) => {
       bg="white"
     >
       <Heading mb={4}>Login</Heading>
-      <form onSubmit={(e) => handleAuthenticate(e, email, password, setAuthorized)}>
+      <form onSubmit={(e) => handleAuthenticate(e, email, password, setIsLoggedIn)}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>

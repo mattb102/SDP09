@@ -22,11 +22,8 @@ function Dashboard() {
     if (!isLoggedIn) {
       navigate('/');
     }
-  }, [isLoggedIn, navigate]);
-
-  useEffect(() => {
     fetchProperties(setProperties, setTotalPages, currentPage, authToken);
-  }, [currentPage, totalPages, authToken]);
+  }, [currentPage, totalPages, authToken, isLoggedIn, setIsLoggedIn, navigate]);
 
   return isLoggedIn && (
     <Box>

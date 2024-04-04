@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-async function handleAuthenticate(event, email, password, setAuthorized) {
+async function handleAuthenticate(event, email, password, setIsLoggedIn) {
   event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
 
@@ -20,7 +20,7 @@ async function handleAuthenticate(event, email, password, setAuthorized) {
       const data = await response.json();
       const token = data.token;
       Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
-      setAuthorized(true);
+      setIsLoggedIn(true);
     } else {
       // TODO: Couldn't reach API or bad credentials
 
