@@ -1,6 +1,6 @@
 const fetchProperties = async (setProperties, setTotalPages, currentPage, authToken) => {
   try {
-    const response = await fetch(`api/house/?page=${currentPage}&page_size=12`, {
+    const response = await fetch(`api/house/?page=${currentPage}&page_size=3`, {
       method: "GET",
       headers: {
         Authorization: `Token ${authToken}`,
@@ -10,7 +10,7 @@ const fetchProperties = async (setProperties, setTotalPages, currentPage, authTo
     if (response.ok) {
       const data = await response.json();
       setProperties(data.results);
-      setTotalPages(Math.ceil(data.count / 10));
+      setTotalPages(Math.ceil(data.count / 3));
     } else {
       console.error("Failed to fetch properties:", response.statusText);
     }
