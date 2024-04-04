@@ -13,7 +13,7 @@ function Paging({currentPage, setCurrentPage, totalPages}) {
         <ChevronLeftIcon />
       </Button>
       }
-      <Text pt={3}>Page: {currentPage}</Text>
+      <Text pt={3}>Page {currentPage} of {totalPages}</Text>
       {
       currentPage < totalPages &&
       <Button colorScheme="blackAlpha" m="2" bg="gray" borderRadius={0} onClick={() => handleNextPage(setCurrentPage, totalPages)}>
