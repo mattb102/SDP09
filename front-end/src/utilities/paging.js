@@ -7,7 +7,6 @@ export const handleBackPage = (setCurrentPage) => {
 }
 
 export const handleNextPage = (setCurrentPage, totalPages) => {
-  console.log(totalPages);
   setCurrentPage(prevPage => prevPage >= totalPages ? prevPage : prevPage + 1);
   window.scrollTo({
     top: 72,

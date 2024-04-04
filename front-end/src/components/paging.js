@@ -1,18 +1,25 @@
 import React from "react";
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Text } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 import { handleBackPage, handleNextPage } from "../utilities/paging";
 
-function Paging({setCurrentPage, totalPages}) {
+function Paging({currentPage, setCurrentPage, totalPages}) {
   return (
     <Flex mt="4" justify="center" width="100%">
+      {
+      currentPage > 1 &&
       <Button colorScheme="blackAlpha" m="2" bg="gray" borderRadius={0} onClick={() => handleBackPage(setCurrentPage)}>
         <ChevronLeftIcon />
       </Button>
+      }
+      <Text pt={3}>Page: {currentPage}</Text>
+      {
+      currentPage < totalPages &&
       <Button colorScheme="blackAlpha" m="2" bg="gray" borderRadius={0} onClick={() => handleNextPage(setCurrentPage, totalPages)}>
         <ChevronRightIcon />
       </Button>
+      }
     </Flex>
   );
 }

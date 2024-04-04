@@ -41,7 +41,7 @@ function Dashboard() {
           />
         ))}
       </Flex>
-      <Paging setCurrentPage={setCurrentPage} totalPages={totalPages}/>
+      <Paging currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages}/>
     </Box>
   );
 }
