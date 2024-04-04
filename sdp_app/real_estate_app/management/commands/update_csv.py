@@ -179,7 +179,7 @@ def export_to_csv(response_text, file_path, image_urls):
                 image_url_index = image_url_index + 1
 
 jsessionid = get_jsessionid()
-ids = get_listing_ids(jsessionid)[0:5]
+ids = get_listing_ids(jsessionid)[0:48]
 image_urls = []
 for index, id in enumerate(ids):
     if index == 10:
