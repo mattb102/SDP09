@@ -181,7 +181,7 @@ def export_to_csv(response_text, file_path, image_urls):
 
 jsessionid = get_jsessionid()
 ids = ids[::-1]
-ids = get_listing_ids(jsessionid)[0:10]
+ids = get_listing_ids(jsessionid)[0:100]
 image_urls = []
 for index, id in enumerate(ids):
     print(id)
