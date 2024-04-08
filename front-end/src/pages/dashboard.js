@@ -11,6 +11,7 @@ import fetchProperties from "../utilities/fetch-properties";
 
 function Dashboard() {
   const [properties, setProperties] = useState([]);
+  const [queryParams, setQueryParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1); // State to keep track of the current page
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useOutletContext();
@@ -27,7 +28,7 @@ function Dashboard() {
 
   return isLoggedIn && (
     <Box>
-      <Navbar setIsLoggedIn={setIsLoggedIn}/>
+      <Navbar setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage}/>
       <Search/>
       <Flex justify='space-around' wrap='wrap'>
         {properties.map((property, index) => (

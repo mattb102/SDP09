@@ -21,7 +21,11 @@ function PropertyModal({ isOpen, onClose, property }) {
         <ModalCloseButton />
         <ModalBody style={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}>
           <Stack spacing="3" textAlign="left">
-            <Image src={property.image_url} alt="Property Image" />
+            <Image src={property.image_url} alt="Property Image" w='788px' h='400px'/>
+            <Heading size='lg'>Equity Projections</Heading>
+            <Text><b>5 Year Projection:</b> x</Text>
+            <Text><b>_ Year Projection:</b> x</Text>
+            <Text><b>_ Year Projection:</b> x</Text>
             <Heading size='lg'>Property Information</Heading>
             {property.mls_number && <Text><b>MLS#:</b> {property.mls_number}</Text>}
             {property.status && <Text><b>Status:</b> {property.status}</Text>}
