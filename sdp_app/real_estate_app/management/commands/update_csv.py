@@ -180,8 +180,8 @@ def export_to_csv(response_text, file_path, image_urls):
                 image_url_index = image_url_index + 1
 
 jsessionid = get_jsessionid()
-ids = ids[::-1]
 ids = get_listing_ids(jsessionid)[0:100]
+ids = ids[::-1]
 image_urls = []
 for index, id in enumerate(ids):
     print(id)
