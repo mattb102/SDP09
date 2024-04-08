@@ -56,6 +56,7 @@ def get_listing_ids(jsessionid):
         '_gat_gtag_UA_132887259_1': '1'
     }
 
+
     data = {
     "searchtype": "LISTING",
     "searchclass": "SF_AND_CN",
@@ -73,7 +74,7 @@ def get_listing_ids(jsessionid):
         {"ordinal": None, "id": "STYLE", "value": "", "option": "", "min": None, "max": None, "none": "", "all": ""}
     ],
     "layers": [],
-    "sort": [{"field": "CITY", "direction": 1, "mark": True}],
+    "sort": [{"field": "STREET_ADDRESS", "direction": 1, "mark": True}],
     "record": True,
     "report": "agent-rd-table"
 }
@@ -179,9 +180,11 @@ def export_to_csv(response_text, file_path, image_urls):
                 image_url_index = image_url_index + 1
 
 jsessionid = get_jsessionid()
-ids = get_listing_ids(jsessionid)[0:5]
+ids = ids[::-1]
+ids = get_listing_ids(jsessionid)[0:10]
 image_urls = []
 for index, id in enumerate(ids):
+    print(id)
     if index == 10:
         jsessionid = get_jsessionid()
     image_url = fetch_image_url(id, jsessionid)
