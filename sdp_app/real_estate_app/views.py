@@ -1,3 +1,4 @@
+from rest_framework.views import APIView
 from rest_framework import generics
 from .models import House
 from .serializers import HouseSerializer
@@ -50,4 +51,14 @@ class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = House.objects.all()
     serializer_class = HouseSerializer
+
+class SearchView(APIView):
+    def get(self, request):
+        search_query = request.query_params.get('q', '')
+
+        queryset = House.objects.filter(address__icontains=search_query)
+
+        serializer = HouseSerializer(queryset, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
