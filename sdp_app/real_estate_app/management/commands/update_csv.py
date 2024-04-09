@@ -4,6 +4,7 @@ import csv
 from io import StringIO
 from bs4 import BeautifulSoup
 import re
+import math
 def get_jsessionid():
     sign_in_url = 'https://smartmls3.connectmls.com/servlet/SignIn?fromurl=slogin.jsp&userid=HOSKIERO&password=punkin%402023&screenHeight=1080&screenWidth=1920&visitorid=1709147497240'
     session = requests.Session()
@@ -72,12 +73,7 @@ def get_listing_ids(jsessionid):
         {"ordinal": None, "id": "COMPLEXNAME", "value": "", "option": "", "min": None, "max": None, "none": None, "all": None},
         {"ordinal": None, "id": "SQFTESTHEATEDABOVEGRADE", "value": None, "option": None, "min": None, "max": None, "none": None, "all": None},
         {"ordinal": None, "id": "STYLE", "value": "", "option": "", "min": None, "max": None, "none": "", "all": ""}
-    ],
-    "layers": [],
-    "sort": [{"field": "STREET_ADDRESS", "direction": 1, "mark": True}],
-    "record": True,
-    "report": "agent-rd-table"
-}
+    ]}
 
 
     response = requests.post(url, headers=headers, cookies=cookies, json=data)
@@ -150,6 +146,7 @@ def fetch_image_url(property_id, jsession_id):
     }
 
     response = requests.get(url, headers=headers, cookies=cookies)
+    return_data = []
     if response.status_code == 200:                                                     
         html_content = response.text
         soup = BeautifulSoup(html_content, 'html.parser')                               
@@ -159,39 +156,61 @@ def fetch_image_url(property_id, jsession_id):
             if 'window.photo_data' in script_text:                                      
                 photo_links = re.findall(r'href:\'(.*?)\'', script_text)                
                 if photo_links:
-                    return(photo_links[0])                                               
+                    return_data.append(photo_links[0])                                               
                     break
+                else:
+                    return None
+        try:
+            listing_id_div = soup.find('div', text='Listing ID')
+            listing_id = listing_id_div.find_next_sibling('div', class_='report-value').text
+            print("Listing ID:", listing_id)
+            return_data.append(listing_id)
+            return return_data
+        except:
+            return None
     else:                                                                               
         print("Request error.")
 
 
-def export_to_csv(response_text, file_path, image_urls):
-    with open(file_path, 'w', newline='') as csvfile:
-            csvreader = csv.reader(StringIO(response_text))
-            csvwriter = csv.writer(csvfile)
-            image_url_index = -1
+def export_to_csv(response_text, write_csv_path, image_urls):
+    # Open the CSV files for reading and writing
+    with open(write_csv_path, 'w', newline='') as write_csvfile:
+        csvreader = csv.reader(StringIO(response_text))
+        csvwriter = csv.writer(write_csvfile)
+        
+        # Write the CSV file headers to the new file
+        headers = next(csvreader)
+        headers.insert(0, "Image")
+        csvwriter.writerow(headers)
+        
+        # Iterate over each MLS number and corresponding image URL
+        for mls_number, image_url in image_urls.items():
             for row in csvreader:
-                if image_url_index == -1:
-                    row.insert(0, "Image")
-                    csvwriter.writerow(row)
-                else:
-                    row.insert(0, image_urls[image_url_index])
-                    csvwriter.writerow(row)
-                image_url_index = image_url_index + 1
-
+                if row[0] == mls_number:
+                    row.insert(0, image_url)  # Insert the image URL at the beginning
+                    csvwriter.writerow(row)  # Write the modified row
+                    break  # Stop searching once the row is found
+            
 jsessionid = get_jsessionid()
-ids = get_listing_ids(jsessionid)[0:100]
-ids = ids[::-1]
-image_urls = []
+ids = get_listing_ids(jsessionid)
+image_urls = {}
 for index, id in enumerate(ids):
     print(id)
     if index == 10:
         jsessionid = get_jsessionid()
-    image_url = fetch_image_url(id, jsessionid)
-    while(image_url == None):
-        image_url = fetch_image_url(id, jsessionid)
-    image_urls.append(image_url)
-print(len(image_urls))
+    try:
+        image_url, MLS_num = fetch_image_url(id, jsessionid)
+        image_urls[MLS_num] = image_url
+    except TypeError:
+        image_url = None
+    attempts = 1
+    while(image_url == None and attempts < 30):
+        try:
+            image_url, MLS_num = fetch_image_url(id, jsessionid)
+            image_urls[MLS_num] = image_url
+        except:
+            image_url = None
+        attempts += 1
 export_link = (export_listings(jsessionid, ids))
 response = requests.get("https://smartmls3.connectmls.com" + json.loads(export_link)['url'])
 export_to_csv(response.text, './output.csv', image_urls)

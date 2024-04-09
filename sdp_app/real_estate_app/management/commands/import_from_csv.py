@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 exterior_features = row[39]
                 middle_jr_high_school = row[40]
                 pool_description = row[41]
-                estimated_annual_heat_cost = Decimal(row[41]) if row[42] else None
+                estimated_annual_heat_cost = Decimal(row[42]) if row[42] else None
 
                 house = House.objects.create(
                     image_url=image_url,
