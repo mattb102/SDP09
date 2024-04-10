@@ -25,7 +25,7 @@ function SearchBar({setQueryParams, setCurrentPage}) {
                 <Text>Number of Bedrooms:</Text>
                 <Input name="beds_total" type="number" min="0" borderRadius={0}/>
                 <Text>Number of Bathrooms:</Text>
-                <Input name="baths_total" type="number" min="0" borderRadius={0}/>
+                <Input name="baths_total" type="text" min="0" placeholder="Full/Half" borderRadius={0}/>
                 <Text>Property Type:</Text>
                 <Select borderRadius={0}>
                   <option value="house">House</option>
