@@ -23,13 +23,13 @@ function Dashboard() {
     if (!isLoggedIn) {
       navigate('/');
     }
-    fetchProperties(setProperties, setTotalPages, currentPage, authToken);
-  }, [currentPage, totalPages, authToken, isLoggedIn, setIsLoggedIn, navigate]);
+    fetchProperties(setProperties, setTotalPages, currentPage, queryParams, authToken);
+  }, [currentPage, totalPages, authToken, isLoggedIn, setIsLoggedIn, queryParams, navigate]);
 
   return isLoggedIn && (
     <Box>
       <Navbar setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage}/>
-      <Search/>
+      <Search setQueryParams={setQueryParams}/>
       <Flex justify='space-around' wrap='wrap'>
         {properties.map((property, index) => (
           <PropertyCard

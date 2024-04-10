@@ -14,12 +14,12 @@ import {
 
 function PropertyModal({ isOpen, onClose, property }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="2xl" scrollBehavior='inside' isCentered>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent maxH="90vh">
         <ModalHeader>{`${property.address}, ${property.town}, CT`}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody style={{ overflowY: "auto", maxHeight: "calc(100vh - 200px)" }}>
+        <ModalBody style={{ overflowY: "auto"}}>
           <Stack spacing="3" textAlign="left">
             <Image src={property.image_url} alt="Property Image" w='788px' h='400px'/>
             <Heading size='lg'>Equity Projections</Heading>

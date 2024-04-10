@@ -1,11 +1,22 @@
 import React from 'react';
-import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons'; // Import the ChevronDownIcon
+import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, Text, Select } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
-function SearchBar() {
-  const stopPropagation = (e) => {
-    e.stopPropagation();
-  };
+function SearchBar({setQueryParams}) {
+  const handleFilter = (e) => {
+    const { name, value } = e.target;
+    if (value === '') {
+      setQueryParams(prevParams => {
+        delete prevParams[name];
+        return { ...prevParams };
+      });
+    } else {
+      setQueryParams(prevParams => ({
+        ...prevParams,
+        [name]: value
+      }));
+    }
+  };  
 
   return (
     <Box p={4}>
@@ -17,42 +28,23 @@ function SearchBar() {
             Filters
           </MenuButton>
           <MenuList borderRadius={0}>
-            <MenuItem>
-              <label>
-                Price Range:
-                <input type="text" placeholder="Min" style={{ marginLeft: '10px' }}/>
-                <input type="text" placeholder="Max" style={{ marginLeft: '10px' }}/>
-              </label>
-            </MenuItem>
-            <MenuItem>
-              <label>
-                Number of Bedrooms:
-                <input type="number" min="0" style={{ marginLeft: '10px' }} onClick={stopPropagation} />
-              </label>
-            </MenuItem>
-            <MenuItem>
-              <label>
-                Number of Bathrooms:
-                <input type="number" min="0" style={{ marginLeft: '10px' }} onClick={stopPropagation} />
-              </label>
-            </MenuItem>
-            <MenuItem>
-              <label>
-                Property Type:
-                <select style={{ marginLeft: '10px' }} onClick={stopPropagation}>
-                  <option value="house">House</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="condo">Condo</option>
-                </select>
-              </label>
-            </MenuItem>
-            <MenuItem>
-              <label>
-                Location:
-                <input type="text" placeholder="Location" style={{ marginLeft: '10px' }} onClick={stopPropagation} />
-              </label>
-            </MenuItem>
-            {/* Add more MenuItem components as needed */}
+            <Text>Price Range:</Text>
+            <Flex>
+              <Input name="min_price" type="text" placeholder="Min" ml={2} onChange={handleFilter}/>
+              <Input name="max_price" type="text" placeholder="Max" ml={2} onChange={handleFilter}/>
+            </Flex>
+            <Text>Number of Bedrooms:</Text>
+            <Input name="beds_total" type="number" min="0" ml={2} onChange={handleFilter}/>
+            <Text>Number of Bathrooms:</Text>
+            <Input name="baths_total" min="0" ml={2} onChange={handleFilter}/>
+            <Text>Property Type:</Text>
+            <Select ml={2} >
+              <option value="house">House</option>
+              <option value="apartment">Apartment</option>
+              <option value="condo">Condo</option>
+            </Select>
+            <Text>Location:</Text>
+            <Input type="text" placeholder="Location" ml={2} />
           </MenuList>
         </Menu>
       </Flex>
