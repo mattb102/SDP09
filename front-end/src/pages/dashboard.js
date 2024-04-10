@@ -29,7 +29,7 @@ function Dashboard() {
   return isLoggedIn && (
     <Box>
       <Navbar setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage}/>
-      <Search setQueryParams={setQueryParams}/>
+      <Search setQueryParams={setQueryParams} setCurrentPage={setCurrentPage}/>
       <Flex justify='space-around' wrap='wrap'>
         {properties.map((property, index) => (
           <PropertyCard

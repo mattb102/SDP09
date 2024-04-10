@@ -16,7 +16,7 @@ function PropertyModal({ isOpen, onClose, property }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl" scrollBehavior='inside' isCentered>
       <ModalOverlay />
-      <ModalContent maxH="90vh">
+      <ModalContent maxH="90vh" borderRadius={1}>
         <ModalHeader>{`${property.address}, ${property.town}, CT`}</ModalHeader>
         <ModalCloseButton />
         <ModalBody style={{ overflowY: "auto"}}>
