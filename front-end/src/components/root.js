@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import { Outlet } from "react-router-dom";
 
 function Root() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return sessionStorage.getItem('isLoggedIn') === 'true';
+  });
 
   return(
     <div>

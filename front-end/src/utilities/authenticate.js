@@ -21,6 +21,7 @@ async function handleAuthenticate(event, email, password, setIsLoggedIn) {
       const token = data.token;
       Cookies.set('token', token, { path: '/', sameSite: 'strict', secure: true });
       setIsLoggedIn(true);
+      sessionStorage.setItem('isLoggedIn', 'true')
     } else {
       // TODO: Couldn't reach API or bad credentials
 
