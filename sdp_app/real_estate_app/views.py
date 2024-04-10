@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from django.db.models import Q
 from rest_framework import generics
 from .models import House
 from .serializers import HouseSerializer
@@ -56,7 +57,9 @@ class SearchView(APIView):
     def get(self, request):
         search_query = request.query_params.get('q', '')
 
-        queryset = House.objects.filter(address__icontains=search_query)
+
+        queryset = House.objects.filter(Q(address__icontains=search_query) | Q(town__icontains=search_query))
+
 
         serializer = HouseSerializer(queryset, many=True)
 
