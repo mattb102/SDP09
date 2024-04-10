@@ -9,7 +9,8 @@ import {
   Stack, 
   Text, 
   Image, 
-  Heading 
+  Heading,
+  Divider
 } from "@chakra-ui/react";
 
 function PropertyModal({ isOpen, onClose, property }) {
@@ -22,11 +23,12 @@ function PropertyModal({ isOpen, onClose, property }) {
         <ModalBody style={{ overflowY: "auto"}}>
           <Stack spacing="3" textAlign="left">
             <Image src={property.image_url} alt="Property Image" w='788px' h='400px'/>
+            <Divider/>
             <Heading size='lg'>Equity Projections</Heading>
             <Text><b>5 Year Projection:</b> x</Text>
             <Text><b>_ Year Projection:</b> x</Text>
             <Text><b>_ Year Projection:</b> x</Text>
-            <Heading size='lg'>Property Information</Heading>
+            <Heading size='lg' mt={5}>Property Information</Heading>
             {property.mls_number && <Text><b>MLS#:</b> {property.mls_number}</Text>}
             {property.status && <Text><b>Status:</b> {property.status}</Text>}
             {property.last_status_date && <Text><b>Last Status Date:</b> {property.last_status_date}</Text>}
