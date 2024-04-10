@@ -1,9 +1,10 @@
 import Cookies from 'js-cookie';
 
-async function handleAuthenticate(event, email, password, setIsLoggedIn) {
+async function handleAuthenticate(event, email, password, setIsLoggedIn, setError) {
   event.preventDefault();
   const csrfToken = Cookies.get('csrftoken');
 
+  setError(false);
   const username = email; // temp until backend remove usernames
 
   try {
@@ -24,7 +25,7 @@ async function handleAuthenticate(event, email, password, setIsLoggedIn) {
       sessionStorage.setItem('isLoggedIn', 'true')
     } else {
       // TODO: Couldn't reach API or bad credentials
-
+      setError(true);
     }
   } catch (error) {
     // TODO: Some other error occurred

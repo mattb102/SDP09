@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, FormControl, FormLabel, Input, Heading, VStack, Box } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Heading, VStack, Box, Text} from "@chakra-ui/react";
 
 import handleAuthenticate from "../utilities/authenticate"; 
 
 const LoginForm = ({setSignup, isLoggedIn, setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const LoginForm = ({setSignup, isLoggedIn, setIsLoggedIn}) => {
       bg="white"
     >
       <Heading mb={4}>Login</Heading>
-      <form onSubmit={(e) => handleAuthenticate(e, email, password, setIsLoggedIn)}>
+      <form onSubmit={(e) => handleAuthenticate(e, email, password, setIsLoggedIn, setError)}>
         <VStack spacing={4}>
           <FormControl id="email" isRequired>
             <FormLabel>Email address</FormLabel>
@@ -59,6 +60,7 @@ const LoginForm = ({setSignup, isLoggedIn, setIsLoggedIn}) => {
           >
             Login
           </Button>
+          {error && <Text color='red'>Invalid email or password.</Text>}
           <Link href="#" color="gray.600">
             Forgot password?
           </Link>
