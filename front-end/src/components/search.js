@@ -15,25 +15,36 @@ function SearchBar({setQueryParams, setCurrentPage}) {
             Filters
           </MenuButton>
           <MenuList borderRadius={0} p={2}>
-            <Stack spacing={2}>
-              <Text>Price Range:</Text>
-              <Flex spacing={1}>
-                <Input name="min_price" type="number" placeholder="Minimum" onChange={(e) => handleFilter(e, setQueryParams, setCurrentPage)}/>
-                <Input name="max_price" type="number" placeholder="Maximum" onChange={(e) => handleFilter(e, setQueryParams, setCurrentPage)}/>
-              </Flex>
-              <Text>Number of Bedrooms:</Text>
-              <Input name="beds_total" type="number" min="0" onChange={(e) => handleFilter(e, setQueryParams, setCurrentPage)}/>
-              <Text>Number of Bathrooms:</Text>
-              <Input name="baths_total" type="number" min="0" onChange={(e) => handleFilter(e, setQueryParams, setCurrentPage)}/>
-              <Text>Property Type:</Text>
-              <Select>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="CO">Condo</option>
-              </Select>
-              <Text>Square Footage:</Text>
-              <Input name="sq_ft_total" type="number" min="0" onChange={(e) => handleFilter(e, setQueryParams, setCurrentPage)}/>
-            </Stack>
+            <form onSubmit={(e) => handleFilter(e, setQueryParams, setCurrentPage)}>
+              <Stack spacing={2}>
+                <Text>Price Range:</Text>
+                <Flex spacing={1}>
+                  <Input name="min_price" type="number" placeholder="Minimum" borderRadius={0}/>
+                  <Input name="max_price" type="number" placeholder="Maximum" borderRadius={0}/>
+                </Flex>
+                <Text>Number of Bedrooms:</Text>
+                <Input name="beds_total" type="number" min="0" borderRadius={0}/>
+                <Text>Number of Bathrooms:</Text>
+                <Input name="baths_total" type="number" min="0" borderRadius={0}/>
+                <Text>Property Type:</Text>
+                <Select borderRadius={0}>
+                  <option value="house">House</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="CO">Condo</option>
+                </Select>
+                <Text>Square Footage:</Text>
+                <Input name="sq_ft_total" type="number" placeholder="Minimum" min="0" borderRadius={0}/>
+                <Button
+                  type="submit"
+                  colorScheme="gray"
+                  width="100%"
+                  borderRadius={0}
+                  _hover={{ bg: 'gray', color: 'white' }}
+                >
+                  Filter
+                </Button>
+              </Stack>
+            </form>
           </MenuList>
         </Menu>
       </Flex>
