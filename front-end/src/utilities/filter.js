@@ -1,4 +1,4 @@
-const handleFilter = (e, setQueryParams, setCurrentPage) => {
+const handleFilter = (e, setQueryParams, setCurrentPage, setMenuOpen) => {
   e.preventDefault();
   setCurrentPage(1);
 
@@ -17,6 +17,8 @@ const handleFilter = (e, setQueryParams, setCurrentPage) => {
       }));
     }
   }
+
+  setMenuOpen(false);
 };  
 
 export default handleFilter;

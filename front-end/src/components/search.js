@@ -1,21 +1,24 @@
-import React from 'react';
-import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, Text, Select, Stack } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Flex, Input, Button, Menu, MenuButton, MenuList, Text, Select, Stack, HStack } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 import handleFilter from '../utilities/filter';
+import clearFilter from '../utilities/clear-filter';
 
 function SearchBar({setQueryParams, setCurrentPage}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <Box p={4}>
       <Flex alignItems="center">
         <Input borderRadius={0} placeholder="Search..." />
         <Button colorScheme='blackAlpha' bg="gray" borderRadius={0}>Search</Button>
-        <Menu>
-          <MenuButton as={Button} ml={4} colorScheme="blackAlpha" bg="gray" borderRadius={0} rightIcon={<ChevronDownIcon />}>
+        <Menu isOpen={menuOpen} onClose={() => setMenuOpen(false)}>
+          <MenuButton as={Button} ml={4} colorScheme="blackAlpha" bg="gray" borderRadius={0} rightIcon={<ChevronDownIcon />} onClick={() => setMenuOpen(!menuOpen)}>
             Filters
           </MenuButton>
           <MenuList borderRadius={0} p={2}>
-            <form onSubmit={(e) => handleFilter(e, setQueryParams, setCurrentPage)}>
+            <form onSubmit={(e) => handleFilter(e, setQueryParams, setCurrentPage, setMenuOpen)}>
               <Stack spacing={2}>
                 <Text>Price Range:</Text>
                 <Flex spacing={1}>
@@ -34,15 +37,26 @@ function SearchBar({setQueryParams, setCurrentPage}) {
                 </Select>
                 <Text>Square Footage:</Text>
                 <Input name="sq_ft_total" type="number" placeholder="Minimum" min="0" borderRadius={0}/>
-                <Button
-                  type="submit"
-                  colorScheme="gray"
-                  width="100%"
-                  borderRadius={0}
-                  _hover={{ bg: 'gray', color: 'white' }}
-                >
-                  Filter
-                </Button>
+                <HStack>
+                  <Button
+                    type="submit"
+                    colorScheme="gray"
+                    width="100%"
+                    borderRadius={0}
+                    _hover={{ bg: 'gray', color: 'white' }}
+                  >
+                    Filter
+                  </Button>
+                  <Button
+                    colorScheme="gray"
+                    width="100%"
+                    borderRadius={0}
+                    _hover={{ bg: 'gray', color: 'white' }}
+                    onClick={(e) => clearFilter(e, setQueryParams, setCurrentPage, setMenuOpen)}
+                  >
+                    Clear
+                  </Button>
+                </HStack>
               </Stack>
             </form>
           </MenuList>
