@@ -24,17 +24,20 @@ class HouseListView(generics.ListCreateAPIView):
 
 
         for key, value in self.request.query_params.items():
-            if 'page' in key or key == 'max_price' or key == 'min_price':
+            if 'page' in key or key == 'max_price' or key == 'min_price' or key=='q':
                 continue
             queryset = queryset.filter(**{key: value})
         # Filter queryset based on query parameters
         min_price = self.request.query_params.get('min_price')
         max_price = self.request.query_params.get('max_price')
-
+        search_query = self.request.query_params.get('q')
         if min_price is not None:
             queryset = queryset.filter(price__gte=min_price)
         if max_price is not None:
             queryset = queryset.filter(price__lte=max_price)
+        if search_query is not None:
+            queryset = queryset.filter(Q(address__icontains=search_query) | Q(town__icontains=search_query))
+
 
         return queryset
 
@@ -53,15 +56,4 @@ class HouseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
 
-class SearchView(APIView):
-    def get(self, request):
-        search_query = request.query_params.get('q', '')
-
-
-        queryset = House.objects.filter(Q(address__icontains=search_query) | Q(town__icontains=search_query))
-
-
-        serializer = HouseSerializer(queryset, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
