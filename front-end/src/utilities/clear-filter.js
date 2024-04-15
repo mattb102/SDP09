@@ -1,7 +1,7 @@
 const clearFilter = (e, setQueryParams, setCurrentPage, setMenuOpen) => {
   e.preventDefault();
   setCurrentPage(1);
-  setQueryParams({});
+  setQueryParams(prev => { return {q: prev.q}});
   setMenuOpen(false);
 };  
 
