@@ -24,19 +24,22 @@ class HouseListView(generics.ListCreateAPIView):
 
 
         for key, value in self.request.query_params.items():
-            if 'page' in key or key == 'max_price' or key == 'min_price' or key=='q':
+            if 'page' in key or key == 'max_price' or key == 'min_price' or key=='q' or key == 'min_sqft':
                 continue
             queryset = queryset.filter(**{key: value})
         # Filter queryset based on query parameters
         min_price = self.request.query_params.get('min_price')
         max_price = self.request.query_params.get('max_price')
         search_query = self.request.query_params.get('q')
+        min_sqft = self.request.query_params.get('min_sqft')
         if min_price is not None:
             queryset = queryset.filter(price__gte=min_price)
         if max_price is not None:
             queryset = queryset.filter(price__lte=max_price)
         if search_query is not None:
             queryset = queryset.filter(Q(address__icontains=search_query) | Q(town__icontains=search_query))
+        if min_sqft is not None:
+            queryset = queryset.filter(sq_ft_total__gte=min_sqft)
 
 
         return queryset

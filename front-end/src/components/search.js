@@ -37,7 +37,7 @@ function SearchBar({setQueryParams, setCurrentPage}) {
                 <option value="CO">Condo</option>
               </Select>
               <Text>Square Footage:</Text>
-              <Input name="sq_ft_total" type="number" placeholder="Minimum" min="0" borderRadius={0}/>
+              <Input name="min_sqft" type="number" placeholder="Minimum" min="0" borderRadius={0}/>
               <HStack>
                 <Button
                   type="submit"
