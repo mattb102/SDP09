@@ -52,7 +52,7 @@ function RegisterForm({setSignup}) {
               borderRadius={0}
             />
           </FormControl>
-          <FormControl id="password" isRequired>
+          <FormControl id="password-verify" isRequired>
             <FormLabel>Re-enter password</FormLabel>
             <Input
               type="password"

@@ -19,7 +19,7 @@ function SearchBar({setQueryParams, setCurrentPage}) {
           Filters
         </MenuButton>
         <MenuList borderRadius={0} p={2}>
-          <form onSubmit={(e) => handleFilter(e, setQueryParams, setCurrentPage, setMenuOpen)}>
+          <form id='filters' onSubmit={(e) => handleFilter(e, setQueryParams, setCurrentPage, setMenuOpen)}>
             <Stack spacing={2}>
               <Text>Price Range:</Text>
               <Flex spacing={1}>
