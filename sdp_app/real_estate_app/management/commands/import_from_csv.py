@@ -3,6 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from real_estate_app.models import House
 import csv
+from make_predictions import predict
 
 class Command(BaseCommand):
     help = 'Import houses from CSV file'
@@ -59,7 +60,13 @@ class Command(BaseCommand):
                 middle_jr_high_school = row[40]
                 pool_description = row[41]
                 estimated_annual_heat_cost = Decimal(row[42]) if row[42] else None
-
+                try:
+                    predictions = predict(str(mls_number))
+                    oneyr_prediction = predictions[11]
+                    threeyr_prediction = predictions[35]
+                    fiveyr_prediction = predictions[59]
+                except:
+                    continue
                 house = House.objects.create(
                     image_url=image_url,
                     mls_number=mls_number,
@@ -103,7 +110,10 @@ class Command(BaseCommand):
                     middle_jr_high_school=middle_jr_high_school,
                     pool_description=pool_description,
                     estimated_annual_heat_cost=estimated_annual_heat_cost,
-                    town=town
+                    town=town,
+                    oneyr_prediction = oneyr_prediction,
+                    threeyr_prediction = threeyr_prediction,
+                    fiveyr_prediction = fiveyr_prediction,
                 )
                 house.save()
 

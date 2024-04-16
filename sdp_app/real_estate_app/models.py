@@ -44,6 +44,9 @@ class House(models.Model):
     middle_jr_high_school = models.CharField(max_length=50, null=True, blank=True)
     pool_description = models.CharField(max_length=100, null=True, blank=True)
     estimated_annual_heat_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    oneyr_prediction = models.IntegerField(null=True)
+    threeyr_prediction = models.IntegerField(null=True)
+    fiveyr_prediction = models.IntegerField(null=True)
 
     def __str__(self):
         return f"MLS Number: {self.mls_number}, Status: {self.status}, Price: {self.price}"
