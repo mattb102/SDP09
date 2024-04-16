@@ -3,7 +3,6 @@ const fetchProperties = async (setProperties, setTotalPages, currentPage, queryP
     queryParams.page = currentPage;
     queryParams.page_size = 12;
     const params = new URLSearchParams(queryParams);
-    console.log(params.toString());
 
     const response = await fetch(`api/house/?${params}`, {
       method: "GET",
