@@ -30,12 +30,12 @@ function SearchBar({setQueryParams, setCurrentPage}) {
               <Input name="beds_total" type="number" min="0" borderRadius={0}/>
               <Text>Number of Bathrooms:</Text>
               <Input name="baths_total" type="text" min="0" placeholder="Full/Half" borderRadius={0}/>
-              <Text>Property Type:</Text>
+              {/*<Text>Property Type:</Text>
               <Select borderRadius={0}>
                 <option value="house">House</option>
                 <option value="apartment">Apartment</option>
                 <option value="CO">Condo</option>
-              </Select>
+              </Select>*/}
               <Text>Square Footage:</Text>
               <Input name="min_sqft" type="number" placeholder="Minimum" min="0" borderRadius={0}/>
               <HStack>
