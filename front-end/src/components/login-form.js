@@ -20,6 +20,7 @@ const LoginForm = ({setSignup, isLoggedIn, setIsLoggedIn}) => {
     <Box
       p={8}
       m={8}
+      ml={0}
       w='350px'
       borderWidth={1}
       borderRadius={0}
