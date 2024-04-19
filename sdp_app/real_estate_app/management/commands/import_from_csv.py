@@ -4,8 +4,9 @@ from datetime import datetime
 from decimal import Decimal
 from real_estate_app.models import House
 import csv
+import boto3
 from make_predictions import predict_future_prices
-
+from predictions_plot import plot_past_and_future
 class Command(BaseCommand):
     help = 'Import houses from CSV file'
 
@@ -13,6 +14,7 @@ class Command(BaseCommand):
         parser.add_argument('csv_file', type=str, help='Path to the CSV file containing house data')
 
     def handle(self, *args, **options):
+        s3 = boto3.client('s3')
         csv_file_path = options['csv_file']
         with open(csv_file_path, 'r', newline='') as csvfile:
             reader = csv.reader(csvfile)
@@ -67,6 +69,9 @@ class Command(BaseCommand):
                     oneyr_prediction = predictions[11]
                     threeyr_prediction = predictions[35]
                     fiveyr_prediction = predictions[59]
+                    plot_past_and_future(df, predictions, mls_number, address)
+                    with open(str(mls_number) + 'plot.png', 'rb') as file:
+                        s3.upload_fileobj(file, 'sdp09graphs', str(mls_number) + 'plot.png')
                 except:
                     continue
                 house = House.objects.create(

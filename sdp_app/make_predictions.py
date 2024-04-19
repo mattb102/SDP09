@@ -9,6 +9,16 @@ import matplotlib.pyplot as plt
 import pickle
 import linearregmodel as lrm
 
+def get_specific_data(df, mls):
+    # Filter the DataFrame for the given MLS#
+    df['MLS#'] = df['MLS#'].astype(str)
+    mls_df = df[df['MLS#'] == mls]    
+    # Sort the filtered DataFrame by date
+    mls_df_sorted = mls_df.sort_values(by='Date')
+    # Extract prices and return as a list
+    prices = mls_df_sorted['Price'].tolist()
+    return prices
+        
 def predict_future_prices_xgboost(model, initial_features, steps, n_lags, seasonality_period=12):
     future_features = initial_features.copy()
     predictions = []
@@ -82,7 +92,13 @@ def predict_future_prices(target_mls_id, historical_data):
         for i in range(60):
             averaged_predictions.append(round((xgboost_predictions[i] + linearreg_predictions[str(i + 1)])/2.0, 2))
     else:
-        averaged_predictions = linearreg_predictions
+        averaged_predictions = list(linearreg_predictions.values())
+        
+    prices_list = get_specific_data(historical_data, target_mls_id)
+    
+    shift = prices_list[-1] - averaged_predictions[0]
+    for i in range(60):
+        averaged_predictions[i] += shift
     
     return averaged_predictions
         
