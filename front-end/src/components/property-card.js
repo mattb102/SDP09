@@ -26,7 +26,7 @@ function PropertyCard({property}) {
             <Text>Size: {property.sq_ft_total.toLocaleString()} sqft</Text>
             <Text></Text>
             <Text color='blue.600' fontSize='2xl'>{`$${property.price.toLocaleString()}`}</Text>
-            <Text color='red.600' fontSize='2xl'>{`Projected 5-yr: `}</Text>
+            <Text color='red.600' fontSize='2xl'>{`Projected 5-yr: $${property.fiveyr_prediction.toLocaleString()}`}</Text>
           </Stack>
         </CardBody>
       </Card>

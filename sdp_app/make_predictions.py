@@ -2,74 +2,87 @@ import numpy as np
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit
+from sklearn.preprocessing import StandardScaler
 import joblib
 import csv
 import matplotlib.pyplot as plt
+import pickle
+import linearregmodel as lrm
 
-def predict_future_prices(model, initial_features, steps, n_lags, seasonality_period=12):
-    future_features = np.array(initial_features.copy())
+def predict_future_prices_xgboost(model, initial_features, steps, n_lags, seasonality_period=12):
+    future_features = initial_features.copy()
     predictions = []
     
-    # Ensure future_features is one-dimensional
-    if future_features.ndim > 1:
-        future_features = future_features.squeeze()
-    
-    # Ensure the length of future_features is divisible by seasonality_period
-    remainder = len(future_features) % seasonality_period
-    if remainder != 0:
-        future_features = future_features[:-remainder]
-    
-    # Calculate weighted average seasonal pattern
-    try:
-        seasonal_patterns = future_features.reshape(-1, seasonality_period)
-        current_month = len(future_features) % seasonality_period
-        weights = np.abs(np.arange(len(seasonal_patterns)) - current_month) + 1
-        weighted_seasonal_pattern = np.average(seasonal_patterns, axis=0, weights=weights)
-    except Exception as e:
-        print("Error calculating weighted seasonal pattern:", e)
-        raise
+    # Adjust the parameters for the sine wave and linear trend
+    period_multiplier = 1.5  # Adjust the period of the sine wave
+    linear_factor = np.linspace(1, 5, len(initial_features) + steps)  # Adjust the range of the linear trend
     
     for step in range(steps):
-        # Extract the month feature from the weighted seasonal pattern
-        month_feature = weighted_seasonal_pattern[step % seasonality_period]
+        # Extract the lagged features
+        lagged_features = future_features[-n_lags:]
         
-        # Ensure the correct number of lagged features
-        if len(future_features) > n_lags:
-            future_features = future_features[-n_lags:]
-        elif len(future_features) < n_lags:
-            # If the number of lagged features is less, pad with zeros
-            pad_length = n_lags - len(future_features)
-            future_features = np.concatenate((np.zeros(pad_length), future_features))
+        # Extract the month feature for seasonality
+        month_feature = [(len(future_features) + step) % seasonality_period]  # Update month feature based on current position
         
-        # Append the month feature to the future features
-        future_features = np.append(future_features, month_feature)
+        # Apply the sine wave with adjusted period and linear trend
+        index = len(future_features) + step
+        index %= len(linear_factor)  # Ensure index stays within bounds
+        sine_wave = np.sin(2 * np.pi * index / (12.0 * period_multiplier))
+        current_features = sine_wave * linear_factor[index]
+        
+        # Concatenate lagged features with the month feature
+        current_features = np.concatenate((lagged_features, month_feature, [current_features]), axis=0)
+        
+        # Ensure the correct number of features
+        expected_feature_length = model.feature_importances_.shape[0]
+        current_features = np.pad(current_features, [(0, max(0, expected_feature_length - len(current_features)))], mode='constant')
+        
+        # Reshape the features for prediction
+        current_features = np.array(current_features).reshape(1, -1)
         
         # Predict the price for the current features
-        pred = model.predict(future_features.reshape(1,-1))[0]
+        pred = model.predict(current_features[:, :expected_feature_length])[0]  # Limit features to expected length
         predictions.append(pred)
         
-        # Update the lagged features for the next prediction
-        future_features = np.roll(future_features, -1)
-        future_features[-1] = pred
+        # Update future features for the next prediction
+        future_features = np.append(future_features, pred)
     
     return predictions
 
-def predict(mls_num):
-    target_mls_id = mls_num
-    model = joblib.load(target_mls_id + 'xgboost_model.pkl')
+
+def predict_future_prices(target_mls_id, historical_data):   
     target_features = []
     target_lag = None
-
-    with open('initial_features.csv', 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if row:  # Check if row is not empty
-                mls_id = row[0]  # Assuming MLS ID is in the second column
-                if mls_id == target_mls_id:
-                    # Extract features and lag
-                    target_features = list(map(float, row[1:-1]))  # Features are from second column to second to last column
-                    target_lag = int(row[-1])  # Lag is in the last column
-                    break  # Exit loop once target MLS ID is found
-
-    predictions = predict_future_prices(model, target_features, 60, target_lag)
-    return predictions
+    model_num = 2
+    try:
+        xg_model = joblib.load(target_mls_id + 'xgboost_model.pkl')
+        # Initialize variables to store features and lag
+        with open('initial_features.csv', 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row:  # Check if row is not empty
+                    mls_id = row[0]  # Assuming MLS ID is in the first column
+                    if mls_id == target_mls_id:
+                        # Extract features and lag
+                        target_features = list(map(float, row[1:-1]))  # Features are from second column to second to last column
+                        target_lag = int(row[-1])  # Lag is in the last column
+                        break  # Exit loop once target MLS ID is found
+    except Exception:
+        model_num = 1       
+        
+    grouped_data = lrm.data_processing(historical_data)
+    linearreg_predictions = lrm.predict_future_prices_linearreg(target_mls_id, grouped_data, 60)
+    xgboost_predictions = []
+    
+    if model_num == 2:
+        xgboost_predictions = predict_future_prices_xgboost(xg_model, target_features, 60, target_lag)
+        averaged_predictions = []
+     #   print(xgboost_predictions)
+     #   print(linearreg_predictions)
+        for i in range(60):
+            averaged_predictions.append(round((xgboost_predictions[i] + linearreg_predictions[str(i + 1)])/2.0, 2))
+    else:
+        averaged_predictions = linearreg_predictions
+    
+    return averaged_predictions
+        

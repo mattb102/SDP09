@@ -1,9 +1,10 @@
 from django.core.management.base import BaseCommand
+import pandas as pd
 from datetime import datetime
 from decimal import Decimal
 from real_estate_app.models import House
 import csv
-from make_predictions import predict
+from make_predictions import predict_future_prices
 
 class Command(BaseCommand):
     help = 'Import houses from CSV file'
@@ -61,7 +62,8 @@ class Command(BaseCommand):
                 pool_description = row[41]
                 estimated_annual_heat_cost = Decimal(row[42]) if row[42] else None
                 try:
-                    predictions = predict(str(mls_number))
+                    df = pd.read_csv('historical_data.csv')
+                    predictions = predict_future_prices(str(mls_number), df)
                     oneyr_prediction = predictions[11]
                     threeyr_prediction = predictions[35]
                     fiveyr_prediction = predictions[59]
