@@ -25,9 +25,9 @@ function PropertyModal({ isOpen, onClose, property }) {
             <Image src={property.image_url} alt="Property Image" w='788px' h='400px'/>
             <Divider/>
             <Heading size='lg'>Equity Projections</Heading>
-            <Text><b>5 Year Projection:</b> x</Text>
-            <Text><b>_ Year Projection:</b> x</Text>
-            <Text><b>_ Year Projection:</b> x</Text>
+            <Text><b>5 Year Projection:</b> ${property.oneyr_prediction.toLocaleString()}</Text>
+            <Text><b>_ Year Projection:</b> ${property.threeyr_prediction.toLocaleString()}</Text>
+            <Text><b>_ Year Projection:</b> ${property.fiveyr_prediction.toLocaleString()}</Text>
             <Heading size='lg' mt={5}>Property Information</Heading>
             {property.mls_number && <Text><b>MLS#:</b> {property.mls_number}</Text>}
             {property.status && <Text><b>Status:</b> {property.status}</Text>}
